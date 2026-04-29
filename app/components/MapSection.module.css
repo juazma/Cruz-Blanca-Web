@@ -1,0 +1,146 @@
+/* ── SECTION ─────────────────────────────────────────────── */
+.section {
+  position: relative;
+  background-color: var(--color-bg);
+}
+
+/* ── MAP (full-bleed) ────────────────────────────────────── */
+.mapWrap {
+  width: 100%;
+  height: clamp(420px, 65svh, 680px);
+  position: relative;
+  overflow: hidden;
+}
+
+.map {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  border: none;
+  display: block;
+  filter: saturate(0.55) contrast(1.05);
+}
+
+/* ── CARD (overlaid top-right) ───────────────────────────── */
+.card {
+  position: absolute;
+  top: clamp(1.5rem, 4vw, 3rem);
+  right: clamp(1.5rem, 5vw, 4.5rem);
+  width: clamp(240px, 28vw, 340px);
+  background-color: var(--color-bg);
+  border: 1px solid var(--color-border);
+  padding: clamp(1.5rem, 2.5vw, 2.5rem);
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  box-shadow: 0 4px 32px rgba(28, 16, 9, 0.10);
+}
+
+.cardBody {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+/* ── BLOCK ───────────────────────────────────────────────── */
+.block {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+}
+
+.label {
+  font-family: var(--font-body);
+  font-size: 0.6875rem;
+  font-weight: 500;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--color-text-soft);
+  margin: 0 0 0.35rem;
+}
+
+.value {
+  font-family: var(--font-body);
+  font-size: 0.9rem;
+  font-weight: 300;
+  color: var(--color-text-mid);
+  line-height: 1.55;
+  margin: 0;
+}
+
+.link {
+  font-family: var(--font-body);
+  font-size: 0.9rem;
+  font-weight: 300;
+  color: var(--color-text-mid);
+  line-height: 1.55;
+  transition: color 180ms ease;
+  display: block;
+  position: relative;
+  padding-bottom: 1px;
+  width: fit-content;
+}
+
+.link::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 0;
+  height: 1px;
+  background-color: var(--color-text);
+  transition: width 260ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.link:hover {
+  color: var(--color-text);
+}
+
+.link:hover::after {
+  width: 100%;
+}
+
+/* ── CTA ─────────────────────────────────────────────────── */
+.cta {
+  font-family: var(--font-body);
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: var(--color-text);
+  margin-top: 2rem;
+  position: relative;
+  padding-bottom: 2px;
+  width: fit-content;
+  transition: color 180ms ease;
+}
+
+.cta::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 0;
+  height: 1px;
+  background-color: var(--color-text);
+  transition: width 260ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.cta:hover::after {
+  width: 100%;
+}
+
+/* ── MOBILE ──────────────────────────────────────────────── */
+@media (max-width: 640px) {
+  .mapWrap {
+    height: 340px;
+  }
+
+  .card {
+    position: static;
+    width: 100%;
+    border: none;
+    border-top: 1px solid var(--color-border);
+    box-shadow: none;
+    padding: clamp(1.5rem, 5vw, 2rem) var(--pad-x);
+  }
+}

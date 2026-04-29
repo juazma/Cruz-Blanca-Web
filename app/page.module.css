@@ -1,0 +1,188 @@
+/* ── HERO ────────────────────────────────────────────────── */
+.hero {
+  min-height: 78svh;
+  display: flex;
+  flex-direction: column;
+  padding: clamp(1.75rem, 3.5vw, 3rem) var(--pad-x);
+  background-color: var(--color-bg);
+}
+
+/* ── LOGO BLOCK ──────────────────────────────────────────── */
+.logoBlock {
+  flex: 1;
+  display: flex;
+  align-items: flex-start;
+  padding-top: clamp(1rem, 3vw, 2rem);
+  will-change: transform, opacity;
+  transform-origin: top left;
+}
+
+.logoSvg {
+  width: min(90vw, 1020px);
+  height: auto;
+  display: block;
+}
+
+/* ── INFO BAR ────────────────────────────────────────────── */
+.infoBar {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  gap: 2rem;
+  padding-top: 2.5rem;
+  border-top: 1px solid var(--color-border);
+  will-change: opacity;
+}
+
+.infoLeft {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.tagline {
+  font-family: var(--font-body);
+  font-size: clamp(0.875rem, 1.1vw, 0.9375rem);
+  font-weight: 300;
+  line-height: 1.5;
+  color: var(--color-text-soft);
+  margin: 0;
+}
+
+.nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+}
+
+.nav a {
+  font-family: var(--font-body);
+  font-size: clamp(0.875rem, 1vw, 0.9375rem);
+  font-weight: 400;
+  color: var(--color-text-mid);
+  letter-spacing: 0.01em;
+  position: relative;
+  padding-bottom: 2px;
+  transition: color 180ms ease;
+}
+
+.nav a::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 0;
+  height: 1px;
+  background-color: var(--color-text);
+  transition: width 260ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.nav a:hover {
+  color: var(--color-text);
+}
+
+.nav a:hover::after {
+  width: 100%;
+}
+
+.infoRight {
+  text-align: right;
+  display: flex;
+  flex-direction: column;
+  gap: 0.15em;
+}
+
+.infoRight p {
+  font-family: var(--font-body);
+  font-size: clamp(0.75rem, 1.1vw, 0.875rem);
+  font-weight: 400;
+  color: var(--color-text);
+  line-height: 1.4;
+  margin: 0;
+}
+
+.reservarHero {
+  font-family: var(--font-body);
+  font-size: clamp(0.75rem, 1vw, 0.875rem);
+  font-weight: 500;
+  color: var(--color-text);
+  margin-top: 0.6em;
+  position: relative;
+  padding-bottom: 2px;
+  transition: color 180ms ease;
+  align-self: flex-end;
+}
+
+.reservarHero::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 0;
+  height: 1px;
+  background-color: var(--color-text);
+  transition: width 260ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.reservarHero:hover::after { width: 100%; }
+
+/* ── HERO IMAGE ──────────────────────────────────────────── */
+.heroImage {
+  width: 100%;
+  height: clamp(300px, 60svh, 700px);
+  overflow: hidden;
+  position: relative;
+}
+
+@media (min-width: 769px) {
+  .heroImage {
+    height: clamp(500px, 75svh, 900px);
+  }
+}
+
+.heroImageInner {
+  width: 100%;
+  height: 100%;
+  transform-origin: center center;
+  will-change: transform;
+}
+
+.heroImg {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 35%;
+  display: block;
+}
+
+.heroImageOverlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to bottom,
+    rgba(247, 242, 234, 0.06) 0%,
+    rgba(247, 242, 234, 0.18) 100%
+  );
+  pointer-events: none;
+}
+
+/* ── MOBILE ──────────────────────────────────────────────── */
+@media (max-width: 640px) {
+  .logoSvg {
+    width: min(92vw, 480px);
+  }
+
+  .infoBar {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1.5rem;
+  }
+
+  .infoRight {
+    text-align: left;
+  }
+
+  .reservarHero {
+    align-self: flex-start;
+  }
+}

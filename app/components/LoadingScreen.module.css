@@ -1,0 +1,55 @@
+.overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 9000;
+  background-color: #0e0a06;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.center {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 3.5rem;
+}
+
+.logo {
+  width: min(55vw, 520px);
+  height: auto;
+  display: block;
+}
+
+/* ── PROGRESS BAR ────────────────────────────────────────── */
+.barTrack {
+  width: min(55vw, 520px);
+  height: 1px;
+  background: rgba(245, 237, 224, 0.12);
+  overflow: hidden;
+  border-radius: 1px;
+}
+
+.barFill {
+  height: 100%;
+  width: 0%;
+  background: #f5ede0;
+  border-radius: 1px;
+  animation: fillBar 2s cubic-bezier(0.4, 0, 0.35, 1) forwards;
+}
+
+@keyframes fillBar {
+  0%   { width: 0%; }
+  100% { width: 100%; }
+}
+
+/* ── MOBILE ──────────────────────────────────────────────── */
+@media (max-width: 640px) {
+  .logo {
+    width: min(78vw, 320px);
+  }
+
+  .barTrack {
+    width: min(78vw, 320px);
+  }
+}

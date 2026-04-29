@@ -1,0 +1,148 @@
+/* ── SCROLL TRACK — tall container that drives the scroll animation ── */
+.scrollTrack {
+  height: 350vh;
+  background-color: var(--color-bg);
+  margin-top: var(--pad-y);
+  margin-bottom: var(--pad-y);
+}
+
+/* ── STICKY PANEL — pinned to viewport while track scrolls ────────── */
+.sticky {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  /* Use safe center so it doesn't cut off the top if the content is too tall */
+  justify-content: safe center;
+}
+
+/* ── INNER CONTENT ───────────────────────────────────────────────── */
+.inner {
+  max-width: 1100px;
+  margin-inline: auto;
+  padding: 0 var(--pad-x);
+  display: flex;
+  flex-direction: column;
+  gap: clamp(1rem, 4dvh, 3.5rem);
+  width: 100%;
+}
+
+/* ── EYEBROW ─────────────────────────────────────────────── */
+.eyebrow {
+  font-family: var(--font-body);
+  font-size: 0.6875rem;
+  font-weight: 500;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--color-text-soft);
+}
+
+/* ── EDITORIAL TEXT ──────────────────────────────────────── */
+.editorial {
+  font-family: var(--font-body);
+  /* Use dvh so the text scales down on vertically short windows/devices */
+  font-size: clamp(1.2rem, min(3.2vw, 4dvh), 3rem);
+  font-weight: 300;
+  line-height: 1.35;
+  color: var(--color-text);
+  margin: 0;
+  letter-spacing: -0.01em;
+  /* wrap words naturally */
+  word-break: normal;
+  overflow-wrap: break-word;
+}
+
+/* Each animated word is inline so text wraps normally */
+.word {
+  display: inline;
+  white-space: pre-wrap;
+}
+
+/* ── CONTACT GRID ────────────────────────────────────────── */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2rem;
+  padding-top: clamp(1rem, 4dvh, 3.5rem);
+  border-top: 1px solid var(--color-border);
+}
+
+.col {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.label {
+  font-family: var(--font-body);
+  font-size: 0.6875rem;
+  font-weight: 500;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--color-text-soft);
+  margin-bottom: 0.3rem;
+}
+
+.col p {
+  font-family: var(--font-body);
+  font-size: 0.9375rem;
+  font-weight: 300;
+  color: var(--color-text-mid);
+  margin: 0;
+  line-height: 1.55;
+}
+
+.colLink {
+  font-family: var(--font-body);
+  font-size: 0.9375rem;
+  font-weight: 300;
+  color: var(--color-text-mid);
+  line-height: 1.55;
+  transition: color 180ms ease;
+}
+
+.colLink:hover {
+  color: var(--color-text);
+}
+
+/* ── MOBILE ──────────────────────────────────────────────── */
+@media (max-width: 768px) {
+  .sticky {
+    justify-content: flex-start;
+  }
+  
+  /* Increase scroll track height on mobile to extend the effect */
+  .scrollTrack {
+    height: 400vh;
+  }
+  
+  /* Reduce gaps so everything fits in the screen without being cut off */
+  .inner {
+    gap: 1.5rem;
+    padding-top: 5rem; /* Exactly clear the header */
+    padding-bottom: 2rem;
+  }
+
+  .editorial {
+    font-size: clamp(1.2rem, 5vw, 1.6rem);
+    line-height: 1.3;
+  }
+  
+  .grid {
+    padding-top: 1.5rem;
+    gap: 1.5rem;
+  }
+}
+
+@media (max-width: 640px) {
+  .grid {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+@media (max-width: 400px) {
+  .grid {
+    grid-template-columns: 1fr;
+  }
+}
