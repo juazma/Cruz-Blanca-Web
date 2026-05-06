@@ -3,13 +3,31 @@
 import { useRef } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
 import StickyHeader from "@/app/components/StickyHeader";
-import Footer from "@/app/components/Footer";
+import TestimonialsSection from "@/app/components/TestimonialsSection";
 import styles from "./page.module.css";
 
 // ── SWAP THIS PATH for your own image ─────────────────────────────────────
 const HERO_IMAGE = "/images/menu/pulpo.png";
 
 const EYEBROW  = "› Nuestra forma de entender la mesa";
+
+const VALORES = [
+  {
+    imagen: "/images/galeria1.png",
+    titulo: "Producto Local",
+    texto: "Trabajamos de la mano con proveedores de la zona para asegurar que a tu mesa solo llegue lo más fresco. El respeto por la materia prima es innegociable.",
+  },
+  {
+    imagen: "/images/galeria2.png",
+    titulo: "Cocina Honesta",
+    texto: "Sin artificios ni atajos. Nuestras recetas se basan en el recetario tradicional andaluz, dándole a cada guiso el tiempo y el cariño que merece.",
+  },
+  {
+    imagen: "/images/galeria3.png",
+    titulo: "Trato Cercano",
+    texto: "Cruzar nuestras puertas es entrar en nuestra casa. Nos esforzamos cada día en ofrecerte un servicio atento, cálido y profesional en cada visita.",
+  },
+];
 const HEADLINE = "Seleccionamos cada ingrediente con la máxima exigencia para ofrecerte una cocina honesta, fresca y memorable.";
 
 // ── PAGE ───────────────────────────────────────────────────────────────────
@@ -76,34 +94,31 @@ export default function SobreNosotrosPage() {
         </div>
       </div>
 
-      {/* ── INFO SECTION ──────────────────────────────────────── */}
-      <section className={styles.infoSection}>
-        <div className={styles.infoInner}>
-          <div className={styles.infoGrid}>
-            <div className={styles.infoCol}>
-              <span className={styles.infoLabel}>Dirección</span>
-              <p>C. San Francisco, 85</p>
-              <p>14900 Lucena, Córdoba</p>
-            </div>
-            <div className={styles.infoCol}>
-              <span className={styles.infoLabel}>Teléfono</span>
-              <a href="tel:+34957052429" className={styles.infoLink}>957 05 24 29</a>
-              <a href="tel:+34628592552" className={styles.infoLink}>628 59 25 52</a>
-            </div>
-            <div className={styles.infoCol}>
-              <span className={styles.infoLabel}>Horario</span>
-              <p>Lun – Dom</p>
-              <p>13:00 – 16:30 · 20:00 – 23:30</p>
-            </div>
-            <div className={styles.infoCol}>
-              <span className={styles.infoLabel}>Reservas</span>
-              <a href="/reservar" className={styles.infoLink}>Reservar mesa →</a>
-            </div>
-          </div>
+      {/* ── VALORES ───────────────────────────────────────────── */}
+      <section className={styles.valoresSection}>
+        <div className={styles.valoresInner}>
+          {VALORES.map((v, i) => (
+            <motion.div
+              key={v.titulo}
+              className={styles.valorCard}
+              initial={{ opacity: 0, y: 40 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, amount: 0.25 }}
+              transition={{ duration: 0.75, delay: i * 0.18, ease: [0.16, 1, 0.3, 1] }}
+            >
+              <div className={styles.valorImgWrap}>
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img src={v.imagen} alt={v.titulo} className={styles.valorImg} loading="lazy" />
+              </div>
+              <h3 className={styles.valorTitulo}>{v.titulo}</h3>
+              <p className={styles.valorTexto}>{v.texto}</p>
+            </motion.div>
+          ))}
         </div>
       </section>
 
-      <Footer />
+      {/* ── TESTIMONIOS ───────────────────────────────────────── */}
+      <TestimonialsSection />
     </>
   );
 }

@@ -10,7 +10,6 @@ import QuizRecomendador from "./components/QuizRecomendador";
 import AboutSection from "./components/AboutSection";
 import DishOfDay from "./components/DishOfDay";
 import MapSection from "./components/MapSection";
-import Footer from "./components/Footer";
 
 export default function Home() {
   const [isLoading, setIsLoading] = useState(true);
@@ -110,7 +109,6 @@ export default function Home() {
       <AboutSection />
       <DishOfDay />
       <MapSection />
-      <Footer />
     </>
   );
 }

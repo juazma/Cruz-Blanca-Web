@@ -651,7 +651,7 @@ export const menuData = [
     descripcion: "Solomillo de cerdo ibérico de bellota a la plancha, tierno y sabroso.",
     precio: 22,
     categoria: "carnes",
-    imagen: "",
+    imagen: "/images/menu/solomilloiberico.png",
     alergenos: [],
     tags: {
       saciedad: "contundente",
@@ -668,7 +668,7 @@ export const menuData = [
     descripcion: "Medallones de solomillo de cerdo ibérico con chimichurri criollo casero.",
     precio: 20,
     categoria: "carnes",
-    imagen: "",
+    imagen: "/images/menu/medallonesdesolomillo.png",
     alergenos: [],
     tags: {
       saciedad: "contundente",
@@ -685,7 +685,7 @@ export const menuData = [
     descripcion: "Entrecot de ternera nacional de 350 g a la plancha, al punto que desees.",
     precio: 22,
     categoria: "carnes",
-    imagen: "",
+    imagen: "/images/menu/entrecotdetenera.png",
     alergenos: [],
     tags: {
       saciedad: "contundente",
@@ -702,7 +702,7 @@ export const menuData = [
     descripcion: "Entrecot de ternera de 200 g al estilo argentino, con chimichurri.",
     precio: 18,
     categoria: "carnes",
-    imagen: "",
+    imagen: "/images/menu/entrecotargentino.png",
     alergenos: [],
     tags: {
       saciedad: "contundente",
@@ -719,7 +719,7 @@ export const menuData = [
     descripcion: "Solomillo de ternera de 300 g, la pieza más tierna, a la plancha.",
     precio: 24,
     categoria: "carnes",
-    imagen: "",
+    imagen: "/images/menu/solomillodetenera.png",
     alergenos: [],
     tags: {
       saciedad: "contundente",
@@ -736,7 +736,7 @@ export const menuData = [
     descripcion: "Presa de cerdo ibérico a la brasa, coronada con una loncha de jamón ibérico.",
     precio: 20,
     categoria: "carnes",
-    imagen: "",
+    imagen: "/images/menu/presaiberica.png",
     alergenos: [],
     tags: {
       saciedad: "contundente",

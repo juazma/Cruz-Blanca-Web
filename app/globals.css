@@ -50,6 +50,8 @@
   box-sizing: border-box;
   margin: 0;
   padding: 0;
+  /* Hide native cursor — replaced by CustomCursor component */
+  cursor: none !important;
 }
 
 html {
@@ -70,6 +72,17 @@ body {
   line-height: 1.6;
   overflow-x: clip;
   min-height: 100dvh;
+}
+
+/* ── FOOTER STICKY REVEAL ─────────────────────────────────────
+   .page-content wraps all page output (set in layout.tsx).
+   It sits at z-index 2 so it slides over the sticky footer
+   (z-index 1) as the user scrolls — "curtain reveal" effect.
+──────────────────────────────────────────────────────────────── */
+.page-content {
+  position: relative;
+  z-index: 2;
+  background-color: var(--color-bg);
 }
 
 ::selection {

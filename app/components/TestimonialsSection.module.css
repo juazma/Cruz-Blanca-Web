@@ -1,0 +1,187 @@
+/* ═══════════════════════════════════════════════════════════
+   TESTIMONIALS SECTION
+   ═══════════════════════════════════════════════════════════ */
+
+.section {
+  background-color: var(--color-bg);
+  padding: clamp(5rem, 10vw, 9rem) var(--pad-x);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: clamp(3rem, 6vw, 5rem);
+  border-top: 1px solid var(--color-border);
+}
+
+/* ── HEADER ──────────────────────────────────────────────── */
+.header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.5rem;
+  text-align: center;
+}
+
+.eyebrow {
+  font-family: var(--font-body);
+  font-size: 0.6875rem;
+  font-weight: 500;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--color-text-soft);
+}
+
+.title {
+  font-family: var(--font-display);
+  font-size: clamp(2.4rem, 5.5vw, 5.5rem);
+  font-weight: 700;
+  line-height: 1.05;
+  letter-spacing: -0.025em;
+  color: var(--color-text);
+  margin: 0;
+}
+
+/* ── CAROUSEL ────────────────────────────────────────────── */
+.carousel {
+  display: flex;
+  align-items: center;
+  gap: clamp(1rem, 3vw, 3rem);
+  width: 100%;
+  max-width: 760px;
+}
+
+/* ── ARROWS ──────────────────────────────────────────────── */
+.arrow {
+  flex-shrink: 0;
+  width: 2.75rem;
+  height: 2.75rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: none;
+  border: 1px solid var(--color-border-mid);
+  border-radius: 50%;
+  font-size: 1.4rem;
+  line-height: 1;
+  color: var(--color-text-mid);
+  cursor: pointer;
+  transition: border-color 200ms ease, color 200ms ease, transform 150ms ease;
+  /* prevent flex shrink on small screens */
+  min-width: 2.75rem;
+}
+
+.arrow:hover {
+  border-color: var(--color-text);
+  color: var(--color-text);
+  transform: scale(1.06);
+}
+
+.arrow:active {
+  transform: scale(0.97);
+}
+
+/* ── CARD WRAPPER (fixed height so arrows don't jump) ─────── */
+.cardWrap {
+  flex: 1;
+  min-height: 220px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  /* clip blur overflow */
+  overflow: hidden;
+}
+
+/* ── CARD ────────────────────────────────────────────────── */
+.card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.25rem;
+  text-align: center;
+  width: 100%;
+}
+
+.author {
+  font-family: var(--font-body);
+  font-size: 0.8125rem;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--color-text-soft);
+  margin: 0;
+}
+
+.quote {
+  font-family: var(--font-display);
+  font-size: clamp(1.15rem, 2.4vw, 1.65rem);
+  font-weight: 400;
+  line-height: 1.45;
+  color: var(--color-text);
+  margin: 0;
+  padding: 0;
+  border: none;
+  quotes: none;
+}
+
+.rating {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-family: var(--font-body);
+  font-size: 0.875rem;
+  font-weight: 400;
+  color: var(--color-text-mid);
+}
+
+.star {
+  font-size: 1rem;
+  color: var(--color-text-mid);
+}
+
+/* ── DOTS ────────────────────────────────────────────────── */
+.dots {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+}
+
+.dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background-color: var(--color-border-mid);
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  transition: background-color 250ms ease, transform 250ms ease;
+}
+
+.dot:hover {
+  background-color: var(--color-text-soft);
+}
+
+.dotActive {
+  background-color: var(--color-text);
+  transform: scale(1.3);
+}
+
+/* ── MOBILE ──────────────────────────────────────────────── */
+@media (max-width: 640px) {
+  .carousel {
+    gap: 0.75rem;
+  }
+
+  .arrow {
+    width: 2.25rem;
+    height: 2.25rem;
+    min-width: 2.25rem;
+    font-size: 1.2rem;
+  }
+
+  .cardWrap {
+    min-height: 260px;
+  }
+
+  .quote {
+    font-size: clamp(1.05rem, 4.5vw, 1.3rem);
+  }
+}

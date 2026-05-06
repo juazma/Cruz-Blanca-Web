@@ -4,7 +4,6 @@ import { useState, useEffect, useRef, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { menuData, categorias } from "@/app/data/menuData";
 import StickyHeader from "@/app/components/StickyHeader";
-import Footer from "@/app/components/Footer";
 import DishModal from "@/app/components/DishModal";
 import styles from "./page.module.css";
 
@@ -272,8 +271,6 @@ export default function MenuPage() {
           </div>
         </div>
       </div>
-
-      <Footer />
 
       {/* ── DISH MODAL ───────────────────────────────────── */}
       <DishModal dish={selectedDish} onClose={() => setSelectedDish(null)} />

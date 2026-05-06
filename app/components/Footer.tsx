@@ -1,53 +1,119 @@
+"use client";
+
+import { useRef } from "react";
+import { motion, useScroll, useTransform } from "framer-motion";
 import styles from "./Footer.module.css";
 
-export default function Footer() {
-  return (
-    <footer className={styles.footer} id="contacto" aria-label="Pie de página">
-      <div className={styles.inner}>
+const NAV_LINKS = [
+  { href: "/",             label: "Inicio"   },
+  { href: "/menu",         label: "Carta"    },
+  { href: "/sobre-nosotros", label: "Nosotros" },
+  { href: "/reservar",     label: "Reservas" },
+];
 
-        {/* Logo */}
-        <div className={styles.logoWrap}>
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img src="/logo.svg" alt="Cruz Blanca" className={styles.logo} width={220} height={22} />
+const LEGAL_LINKS = [
+  { href: "/aviso-legal",  label: "Aviso legal"   },
+  { href: "/privacidad",   label: "Privacidad"    },
+  { href: "/cookies",      label: "Cookies"       },
+];
+
+export default function Footer() {
+  const footerRef = useRef<HTMLElement>(null);
+
+  // Parallax: the big wordmark scrolls up slightly slower than the rest
+  const { scrollYProgress } = useScroll({
+    target: footerRef,
+    offset: ["start end", "end end"],
+  });
+  const wordmarkY = useTransform(scrollYProgress, [0, 1], ["6%", "0%"]);
+  const wordmarkScale = useTransform(scrollYProgress, [0, 1], [0.94, 1]);
+
+  const year = new Date().getFullYear();
+
+  return (
+    /* ── footerOuter: sticky bottom so the page slides OVER it ── */
+    <div className={styles.footerOuter}>
+      <footer
+        ref={footerRef}
+        className={styles.footer}
+        id="contacto"
+        aria-label="Pie de página"
+      >
+
+        {/* ── GIANT LOGO ──────────────────────────────────── */}
+        <div className={styles.wordmarkWrap}>
+          <motion.div
+            className={styles.wordmarkInner}
+            style={{ y: wordmarkY, scale: wordmarkScale }}
+          >
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              src="/logo.svg"
+              alt="Cruz Blanca"
+              className={styles.wordmarkLogo}
+            />
+          </motion.div>
         </div>
 
-        {/* Info columns */}
-        <div className={styles.cols}>
+        {/* ── CENTRAL 2-COL SECTION ───────────────────────── */}
+        <div className={styles.central}>
 
-          <div className={styles.col}>
-            <span className={styles.label}>Dirección</span>
-            <p>C. San Francisco, 85</p>
-            <p>14900 Lucena, Córdoba</p>
+          {/* Left: contact blurb */}
+          <div className={styles.centralLeft}>
+            <p className={styles.blurb}>
+              Si buscas una experiencia gastronómica única en el centro de Lucena,
+              estaremos encantados de recibirte en nuestra casa.
+            </p>
+            <div className={styles.contactBlock}>
+              <a href="mailto:info@cruzblancalucena.es" className={styles.contactBig}>
+                info@cruzblancalucena.es
+              </a>
+              <a href="tel:+34957052429" className={styles.contactBig}>
+                957 05 24 29
+              </a>
+              <a href="tel:+34628592552" className={styles.contactMid}>
+                628 59 25 52
+              </a>
+            </div>
           </div>
 
-          <div className={styles.col}>
-            <span className={styles.label}>Horario</span>
-            <p>Lunes – Domingo</p>
-            <p>13:00 – 16:30</p>
-            <p>20:00 – 23:30</p>
-          </div>
-
-          <div className={styles.col}>
-            <span className={styles.label}>Contacto</span>
-            <a href="tel:+34957052429" className={styles.contactLink}>957 05 24 29</a>
-            <a href="tel:+34628592552" className={styles.contactLink}>628 59 25 52</a>
-            <a
-              href="https://maps.google.com/?q=C.+San+Francisco+85+Lucena+Córdoba"
-              target="_blank"
-              rel="noopener noreferrer"
-              className={styles.contactLink}
-            >
-              Ver en Google Maps →
+          {/* Right: schedule */}
+          <div className={styles.centralRight}>
+            <span className={styles.scheduleLabel}>Horario de apertura</span>
+            <p className={styles.scheduleDays}>Lunes – Domingo</p>
+            <p className={styles.scheduleHours}>13:00 – 16:30 / 20:00 – 23:30</p>
+            <a href="/reservar" className={styles.reservarBtn}>
+              Reservar mesa →
             </a>
           </div>
 
         </div>
 
-      </div>
+        {/* ── BOTTOM BAR ──────────────────────────────────── */}
+        <div className={styles.bottom}>
+          <nav className={styles.bottomNav} aria-label="Navegación pie de página">
+            {NAV_LINKS.map((l) => (
+              <a key={l.href} href={l.href} className={styles.bottomLink}>
+                {l.label}
+              </a>
+            ))}
+          </nav>
 
-      <div className={styles.bottom}>
-        <span>© {new Date().getFullYear()} Cruz Blanca · Lucena, Córdoba</span>
-      </div>
-    </footer>
+          <div className={styles.bottomRight}>
+            <nav className={styles.bottomNav} aria-label="Aviso legal">
+              {LEGAL_LINKS.map((l) => (
+                <a key={l.href} href={l.href} className={styles.bottomLink}>
+                  {l.label}
+                </a>
+              ))}
+            </nav>
+            <span className={styles.copyright}>
+              © {year} Cruz Blanca · Lucena, Córdoba
+            </span>
+          </div>
+        </div>
+
+      </footer>
+    </div>
   );
 }

@@ -1,7 +1,6 @@
 "use client";
 
 import { useState } from "react";
-import Footer from "@/app/components/Footer";
 import styles from "./page.module.css";
 
 type Status = "idle" | "sent";
@@ -169,7 +168,6 @@ export default function ReservarPage() {
       </div>
 
     </div>
-    <Footer />
     </div>
   );
 }

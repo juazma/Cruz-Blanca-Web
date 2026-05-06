@@ -1,5 +1,8 @@
 import type { Metadata } from "next";
 import { Cormorant_Garamond, Outfit } from "next/font/google";
+import Footer from "@/app/components/Footer";
+import PageTransition from "@/app/components/PageTransition";
+import CustomCursor from "@/app/components/CustomCursor";
 import "./globals.css";
 
 const cormorant = Cormorant_Garamond({
@@ -36,7 +39,16 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="es" className={`${cormorant.variable} ${outfit.variable}`}>
-      <body>{children}</body>
+      <body>
+        {/* Custom cursor — outside PageTransition so it never unmounts */}
+        <CustomCursor />
+        {/* page-content: z-index 2, slides over the sticky footer below */}
+        <PageTransition>
+          <div className="page-content">{children}</div>
+        </PageTransition>
+        {/* Footer: sticky bottom z-index 1 — revealed as page scrolls up */}
+        <Footer />
+      </body>
     </html>
   );
 }

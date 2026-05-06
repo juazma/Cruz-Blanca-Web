@@ -1,0 +1,8 @@
+.curtain {
+  position: fixed;
+  inset: 0;
+  background-color: #111009;
+  z-index: 9999;
+  /* transform-origin set inline per curtain direction */
+  pointer-events: none;
+}

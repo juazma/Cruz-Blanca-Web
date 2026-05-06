@@ -46,8 +46,8 @@ const STEP_IMAGES = [
   "/images/imageninicioquiz.png",
   "/images/paso1.png",
   "/images/galeria1.png",
-  "https://images.unsplash.com/photo-1600891964599-f61ba0e24092?w=900&q=80&auto=format&fit=crop",
-  "https://images.unsplash.com/photo-1482275548304-a58859dc31b7?w=900&q=80&auto=format&fit=crop",
+  "/images/paso3.png",
+  "/images/paso4.png",
 ];
 
 const Q1_OPTIONS = [

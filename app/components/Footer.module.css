@@ -1,99 +1,253 @@
-.footer {
-  background-color: var(--color-bg-dark);
-  color: var(--color-text-light);
-  padding-block: clamp(4rem, 8vw, 7rem) 2.5rem;
-  padding-inline: var(--pad-x);
+/* ═══════════════════════════════════════════════════════════
+   FOOTER — Premium dark footer, Kanso-style
+   ═══════════════════════════════════════════════════════════ */
+
+/* ── OUTER WRAPPER — sticky reveal effect ────────────────── */
+/*  position: sticky; bottom: 0; z-index: 1                   */
+/*  The main page content sits at z-index: 2 and slides       */
+/*  upward, revealing the footer that was always "below".     */
+.footerOuter {
+  position: sticky;
+  bottom: 0;
+  z-index: 1;
 }
 
-.inner {
-  max-width: 1200px;
-  margin-inline: auto;
+/* ── FOOTER SHELL ────────────────────────────────────────── */
+.footer {
+  background-color: #111009;
+  color: var(--color-bg);
   display: flex;
   flex-direction: column;
-  gap: clamp(3rem, 5vw, 5rem);
+  overflow: hidden; /* keep wordmark from bleeding out */
 }
 
-/* ── LOGO ────────────────────────────────────────────────── */
-.logoWrap {
-  /* Invert to make the dark brown logo visible on dark bg */
-  filter: invert(1) brightness(1.8) sepia(0.15);
+/* ══════════════════════════════════════════════════════════
+   WORDMARK
+   ══════════════════════════════════════════════════════════ */
+.wordmarkWrap {
+  width: 100%;
+  overflow: hidden;
+  padding-top: clamp(3rem, 6vw, 5rem);
+  padding-bottom: clamp(1.5rem, 3vw, 2.5rem);
 }
 
-.logo {
-  width: 220px;
-  height: auto;
+.wordmarkInner {
+  will-change: transform;
+  padding-left: var(--pad-x);
+  padding-right: var(--pad-x);
+}
+
+/* Logo image — invert to white on dark background, scale to fill width */
+.wordmarkLogo {
   display: block;
-  opacity: 0.85;
+  /* Fill most of the footer width, matching the old text wordmark scale */
+  width: min(82%, 900px);
+  height: auto;
+  /* Make the dark-brown logo white */
+  filter: invert(1) brightness(2);
+  opacity: 0.92;
 }
 
-/* ── COLUMNS ─────────────────────────────────────────────── */
-.cols {
+/* ══════════════════════════════════════════════════════════
+   CENTRAL 2-COL SECTION
+   ══════════════════════════════════════════════════════════ */
+.central {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: clamp(2rem, 4vw, 5rem);
+  grid-template-columns: 1fr 1fr;
+  gap: clamp(3rem, 6vw, 6rem);
+  padding: clamp(3rem, 6vw, 5rem) var(--pad-x);
+  border-top: 1px solid rgba(247, 242, 234, 0.08);
+  margin-top: clamp(1.5rem, 3vw, 2.5rem);
 }
 
-.col {
+/* ── LEFT: contact ───────────────────────────────────────── */
+.centralLeft {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.blurb {
+  font-family: var(--font-body);
+  font-size: 0.9rem;
+  font-weight: 300;
+  line-height: 1.7;
+  color: rgba(247, 242, 234, 0.45);
+  max-width: 380px;
+  margin: 0;
+}
+
+.contactBlock {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+}
+
+.contactBig {
+  font-family: var(--font-body);
+  font-size: clamp(1rem, 1.8vw, 1.35rem);
+  font-weight: 500;
+  color: var(--color-bg);
+  line-height: 1.4;
+  transition: color 180ms ease;
+}
+
+.contactBig:hover {
+  color: rgba(247, 242, 234, 0.6);
+}
+
+.contactMid {
+  font-family: var(--font-body);
+  font-size: 0.9375rem;
+  font-weight: 300;
+  color: rgba(247, 242, 234, 0.5);
+  line-height: 1.55;
+  transition: color 180ms ease;
+}
+
+.contactMid:hover {
+  color: var(--color-bg);
+}
+
+/* ── RIGHT: schedule ─────────────────────────────────────── */
+.centralRight {
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
 }
 
-.label {
+.scheduleLabel {
   font-family: var(--font-body);
   font-size: 0.6875rem;
   font-weight: 500;
-  letter-spacing: 0.22em;
+  letter-spacing: 0.2em;
   text-transform: uppercase;
-  color: rgba(247, 242, 234, 0.38);
+  color: rgba(247, 242, 234, 0.35);
   margin-bottom: 0.5rem;
 }
 
-.col p {
+.scheduleDays {
   font-family: var(--font-body);
-  font-size: 0.9375rem;
-  font-weight: 300;
-  line-height: 1.55;
-  color: rgba(247, 242, 234, 0.75);
+  font-size: clamp(1.1rem, 2vw, 1.5rem);
+  font-weight: 500;
+  color: var(--color-bg);
   margin: 0;
+  line-height: 1.2;
 }
 
-.contactLink {
+.scheduleHours {
   font-family: var(--font-body);
-  font-size: 0.9375rem;
+  font-size: clamp(0.9rem, 1.4vw, 1.1rem);
   font-weight: 300;
-  color: rgba(247, 242, 234, 0.75);
-  line-height: 1.7;
-  transition: color 180ms ease;
+  color: rgba(247, 242, 234, 0.55);
+  margin: 0;
+  line-height: 1.5;
 }
 
-.contactLink:hover {
-  color: var(--color-text-light);
+.reservarBtn {
+  display: inline-flex;
+  align-items: center;
+  margin-top: 1.5rem;
+  font-family: var(--font-body);
+  font-size: 0.8125rem;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  color: var(--color-bg);
+  border: 1px solid rgba(247, 242, 234, 0.25);
+  border-radius: 2px;
+  padding: 0.75rem 1.5rem;
+  width: fit-content;
+  transition: background-color 200ms ease, border-color 200ms ease;
 }
 
-/* ── BOTTOM BAR ──────────────────────────────────────────── */
+.reservarBtn:hover {
+  background-color: rgba(247, 242, 234, 0.08);
+  border-color: rgba(247, 242, 234, 0.5);
+}
+
+/* ══════════════════════════════════════════════════════════
+   BOTTOM BAR
+   ══════════════════════════════════════════════════════════ */
 .bottom {
-  max-width: 1200px;
-  margin-inline: auto;
-  width: 100%;
-  padding-top: 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 1rem;
+  padding: 1.5rem var(--pad-x) 2rem;
   border-top: 1px solid rgba(247, 242, 234, 0.08);
+}
+
+.bottomNav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.25rem 1.5rem;
+}
+
+.bottomLink {
   font-family: var(--font-body);
   font-size: 0.75rem;
   font-weight: 300;
-  color: rgba(247, 242, 234, 0.3);
+  color: rgba(247, 242, 234, 0.35);
+  letter-spacing: 0.02em;
+  transition: color 180ms ease;
+}
+
+.bottomLink:hover {
+  color: rgba(247, 242, 234, 0.75);
+}
+
+.bottomRight {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 0.5rem;
+}
+
+.copyright {
+  font-family: var(--font-body);
+  font-size: 0.75rem;
+  font-weight: 300;
+  color: rgba(247, 242, 234, 0.2);
   letter-spacing: 0.04em;
 }
 
-/* ── MOBILE ──────────────────────────────────────────────── */
-@media (max-width: 640px) {
-  .cols {
-    grid-template-columns: 1fr 1fr;
+/* ══════════════════════════════════════════════════════════
+   MOBILE
+   ══════════════════════════════════════════════════════════ */
+@media (max-width: 768px) {
+  /* Logo fills more of the narrow screen */
+  .wordmarkLogo {
+    width: 90%;
   }
-}
 
-@media (max-width: 400px) {
-  .cols {
+  .central {
     grid-template-columns: 1fr;
+    gap: 3rem;
+  }
+
+  .blurb {
+    max-width: 100%;
+  }
+
+  .bottom {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1.5rem;
+  }
+
+  .bottomRight {
+    align-items: flex-start;
+  }
+
+  /* ── STICKY REVEAL OFF on mobile ──────────────────────────
+     When the footer is taller than the viewport the sticky
+     bottom:0 clips the bottom content. On mobile we simply
+     let the footer flow naturally — full visibility, no clip.
+     The reveal effect is a desktop-only enhancement.
+  ───────────────────────────────────────────────────────── */
+  .footerOuter {
+    position: relative;
+    bottom: auto;
   }
 }
