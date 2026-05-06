@@ -18,18 +18,21 @@ const fadeUp: Variants = {
   }),
 };
 
+interface Dish {
+  nombre: string;
+  descripcion: string;
+  precio: number;
+  imagen: string;
+  categoria: string;
+}
+
 // Selects a dish deterministically by day-of-month
 function getDishOfDay() {
-  const eligible = (menuData as { categoria: string }[]).filter(
+  const eligible = (menuData as unknown as Dish[]).filter(
     (d) => d.categoria !== "entrantes" && d.categoria !== "bebidas",
   );
   const index = new Date().getDate() % eligible.length;
-  return eligible[index] as {
-    nombre: string;
-    descripcion: string;
-    precio: number;
-    imagen: string;
-  };
+  return eligible[index];
 }
 
 export default function DishOfDay() {
