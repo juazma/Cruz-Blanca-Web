@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useMemo } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion, AnimatePresence, Variants } from "framer-motion";
 import { menuData } from "@/app/data/menuData";
 
 const PLACEHOLDER =
@@ -110,15 +110,15 @@ function recommend(answers: Answers): Dish {
 
 // ── ANIMATION VARIANTS ─────────────────────────────────────────────────────
 
-const slideVariants = {
+const slideVariants: Variants = {
   enter: (dir: number) => ({ x: dir > 0 ? 56 : -56, opacity: 0 }),
-  center: { x: 0, opacity: 1, transition: { duration: 0.42, ease: [0.16, 1, 0.3, 1] as number[] } },
+  center: { x: 0, opacity: 1, transition: { duration: 0.42, ease: [0.16, 1, 0.3, 1] as const } },
   exit: (dir: number) => ({ x: dir > 0 ? -56 : 56, opacity: 0, transition: { duration: 0.22 } }),
 };
 
-const fadeVariants = {
+const fadeVariants: Variants = {
   hidden: { opacity: 0, y: 16 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: [0.16, 1, 0.3, 1] as number[] } },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: [0.16, 1, 0.3, 1] as const } },
 };
 
 // ── COMPONENT ──────────────────────────────────────────────────────────────

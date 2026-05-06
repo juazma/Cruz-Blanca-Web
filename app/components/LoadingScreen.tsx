@@ -13,7 +13,7 @@ export default function LoadingScreen({ onComplete }: Props) {
       className={styles.overlay}
       exit={{
         opacity: 0,
-        transition: { duration: 0.55, delay: 0.25, ease: [0.4, 0, 0.2, 1] },
+        transition: { duration: 0.55, delay: 0.25, ease: [0.4, 0, 0.2, 1] as const },
       }}
     >
       <div className={styles.center}>
@@ -24,7 +24,7 @@ export default function LoadingScreen({ onComplete }: Props) {
           alt="Cruz Blanca"
           className={styles.logo}
           initial={{ opacity: 0, y: 16 }}
-          animate={{ opacity: 1, y: 0, transition: { duration: 0.8, ease: [0.16, 1, 0.3, 1] } }}
+          animate={{ opacity: 1, y: 0, transition: { duration: 0.8, ease: [0.16, 1, 0.3, 1] as const } }}
         />
 
         {/* Progress bar */}

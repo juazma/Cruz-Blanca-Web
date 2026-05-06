@@ -1,7 +1,7 @@
 "use client";
 
 import { useRef, useMemo, useState, useEffect } from "react";
-import { motion, useInView } from "framer-motion";
+import { motion, useInView, Variants } from "framer-motion";
 import { menuData } from "@/app/data/menuData";
 import styles from "./DishOfDay.module.css";
 
@@ -10,11 +10,11 @@ const PLACEHOLDER =
 
 const TAGS = ["Lucena", "Córdoba", "Cocina de mercado", "Tradición", "Temporada"];
 
-const fadeUp = {
+const fadeUp: Variants = {
   hidden: { opacity: 0, y: 28 },
   visible: (d: number) => ({
     opacity: 1, y: 0,
-    transition: { duration: 0.85, delay: d, ease: [0.16, 1, 0.3, 1] },
+    transition: { duration: 0.85, delay: d, ease: [0.16, 1, 0.3, 1] as const },
   }),
 };
 
