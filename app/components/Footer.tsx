@@ -1,6 +1,7 @@
 "use client";
 
 import { useRef } from "react";
+import { usePathname } from "next/navigation";
 import { motion, useScroll, useTransform } from "framer-motion";
 import styles from "./Footer.module.css";
 
@@ -12,13 +13,19 @@ const NAV_LINKS = [
 ];
 
 const LEGAL_LINKS = [
-  { href: "/aviso-legal",  label: "Aviso legal"   },
-  { href: "/privacidad",   label: "Privacidad"    },
-  { href: "/cookies",      label: "Cookies"       },
+  { href: "/aviso-legal",          label: "Aviso legal"   },
+  { href: "/politica-privacidad",  label: "Privacidad"    },
+  { href: "/politica-cookies",     label: "Cookies"       },
 ];
 
 export default function Footer() {
+  const pathname = usePathname();
   const footerRef = useRef<HTMLElement>(null);
+
+  // If we are in the admin panel, hide the footer completely
+  if (pathname?.startsWith("/admin")) {
+    return null;
+  }
 
   // Parallax: the big wordmark scrolls up slightly slower than the rest
   const { scrollYProgress } = useScroll({

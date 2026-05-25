@@ -318,6 +318,45 @@
   cursor: default;
 }
 
+/* ── AGOTADO state ───────────────────────────────────────── */
+
+.cardAgotado {
+  cursor: default;
+  opacity: 0.55;
+  filter: grayscale(0.3);
+}
+
+/* Prevent zoom on agotado cards */
+.cardAgotado:hover .cardImg {
+  transform: none;
+}
+
+.cardImgWrap {
+  position: relative;
+}
+
+.cardAgotadoOverlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.42);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 2px;
+}
+
+.cardAgotadoBadge {
+  background: #ef4444;
+  color: #fff;
+  font-family: var(--font-body);
+  font-size: 0.7rem;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+  padding: 0.3rem 0.7rem;
+  border-radius: 2px;
+  text-transform: uppercase;
+}
+
 /* ── TABLET ──────────────────────────────────────────────── */
 @media (max-width: 1024px) {
   .grid {

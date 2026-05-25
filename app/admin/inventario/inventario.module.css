@@ -1,0 +1,288 @@
+/* ═══════════════════════════════════════════════════════════════
+   Inventario — página, grupos por categoría, tarjetas de producto
+═══════════════════════════════════════════════════════════════ */
+
+/* ── Página ──────────────────────────────────────────────────── */
+.page {
+  display: flex;
+  flex-direction: column;
+  gap: 2.5rem;
+  padding: 0.5rem 0 3rem;
+}
+
+/* ── Page header ─────────────────────────────────────────────── */
+.pageHeader {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.pageTitle {
+  font-size: 1.6rem;
+  font-weight: 600;
+  color: var(--adm-text-primary);
+  line-height: 1.2;
+  margin-bottom: 0.3rem;
+}
+
+.pageSubtitle {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  flex-wrap: wrap;
+  font-size: 0.875rem;
+  color: var(--adm-text-secondary);
+  font-weight: 400;
+}
+
+.alertaBadge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  padding: 0.18rem 0.55rem;
+  background-color: var(--adm-red-bg);
+  color: var(--adm-red-fg);
+  border-radius: 99px;
+  font-size: 0.72rem;
+  font-weight: 600;
+}
+
+/* ── Grupos por categoría ────────────────────────────────────── */
+.grupos {
+  display: flex;
+  flex-direction: column;
+  gap: 2.25rem;
+}
+
+.grupo {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+/* ── Cabecera de grupo ───────────────────────────────────────── */
+.grupoHeader {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+}
+
+.grupoEmoji {
+  font-size: 1rem;
+  line-height: 1;
+  flex-shrink: 0;
+}
+
+.grupoTitulo {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--adm-text-primary);
+  white-space: nowrap;
+}
+
+.grupoCount {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 20px;
+  height: 20px;
+  padding: 0 5px;
+  border-radius: 99px;
+  background-color: var(--adm-border);
+  color: var(--adm-text-secondary);
+  font-size: 0.68rem;
+  font-weight: 600;
+}
+
+.grupoAlerta {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  padding: 0.16rem 0.5rem;
+  background-color: var(--adm-red-bg);
+  color: var(--adm-red-fg);
+  border-radius: 99px;
+  font-size: 0.68rem;
+  font-weight: 700;
+}
+
+.grupoLine {
+  flex: 1;
+  height: 1px;
+  background-color: var(--adm-border);
+}
+
+/* ── Grid de productos ───────────────────────────────────────── */
+.productosGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 0.875rem;
+}
+
+/* ── Tarjeta de producto ─────────────────────────────────────── */
+.productoCard {
+  background-color: var(--adm-surface);
+  border-radius: var(--adm-radius-md);
+  padding: 1rem 1.1rem;
+  box-shadow: var(--adm-shadow-card);
+  display: flex;
+  flex-direction: column;
+  gap: 0.85rem;
+  border: 1.5px solid transparent;
+  transition: transform 180ms ease, box-shadow 180ms ease, border-color 180ms ease;
+}
+
+.productoCard:hover {
+  transform: translateY(-1px);
+  box-shadow: var(--adm-shadow-hover);
+}
+
+/* Alerta visual: borde izquierdo rojo + leve tinte de fondo */
+.productoCardAlerta {
+  border-color: rgba(153, 27, 27, 0.18);
+  background-color: #fffaf9;
+}
+
+/* ── Fila superior: nombre + badge ───────────────────────────── */
+.productoTop {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 0.5rem;
+}
+
+.productoInfo {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+  flex: 1;
+  min-width: 0;
+}
+
+.productoNombre {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--adm-text-primary);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.productoMinimo {
+  font-size: 0.72rem;
+  color: var(--adm-text-muted);
+  font-weight: 400;
+}
+
+/* ── Estado badge ────────────────────────────────────────────── */
+.estadoBadge {
+  flex-shrink: 0;
+  padding: 0.2rem 0.55rem;
+  border-radius: 99px;
+  font-size: 0.68rem;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.estadoAlerta {
+  background-color: var(--adm-red-bg);
+  color: var(--adm-red-fg);
+}
+
+.estadoAgotado {
+  background-color: #fde8e8;
+  color: #7f1d1d;
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   CONTROLES +/−
+═══════════════════════════════════════════════════════════════ */
+.controles {
+  display: flex;
+  align-items: center;
+  gap: 0;
+  width: 100%;
+  border: 1.5px solid var(--adm-border);
+  border-radius: 8px;
+  overflow: hidden;
+  transition: opacity 200ms ease;
+}
+
+.controlesPending {
+  opacity: 0.45;
+  pointer-events: none;
+}
+
+.ctrlBtn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 34px;
+  border: none;
+  background: var(--adm-bg);
+  color: var(--adm-text-secondary);
+  flex-shrink: 0;
+  cursor: pointer;
+  transition: background 120ms ease, color 120ms ease;
+}
+
+.ctrlBtn:hover:not(:disabled) {
+  background: var(--adm-border);
+  color: var(--adm-text-primary);
+}
+
+.ctrlBtn:disabled {
+  opacity: 0.3;
+  cursor: not-allowed;
+}
+
+/* Separador entre botones y número */
+.ctrlBtn:first-child {
+  border-right: 1.5px solid var(--adm-border);
+}
+.ctrlBtn:last-child {
+  border-left: 1.5px solid var(--adm-border);
+}
+
+.ctrlNum {
+  flex: 1;
+  text-align: center;
+  font-size: 0.925rem;
+  font-weight: 700;
+  color: var(--adm-text-primary);
+  background-color: var(--adm-surface);
+  padding: 0 0.5rem;
+  line-height: 34px;
+  transition: opacity 150ms ease;
+  min-width: 0;
+  white-space: nowrap;
+}
+
+.ctrlNumPending {
+  opacity: 0.4;
+}
+
+/* ── Empty state ─────────────────────────────────────────────── */
+.empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 3rem 1rem;
+  color: var(--adm-text-muted);
+  font-size: 0.875rem;
+  background-color: var(--adm-surface);
+  border-radius: var(--adm-radius-md);
+  border: 1.5px dashed var(--adm-border);
+  text-align: center;
+}
+
+/* ── Responsive ──────────────────────────────────────────────── */
+@media (max-width: 640px) {
+  .productosGrid {
+    grid-template-columns: 1fr;
+  }
+}

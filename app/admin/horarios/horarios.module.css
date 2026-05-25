@@ -1,0 +1,303 @@
+/* ═══════════════════════════════════════════════════════════════
+   Horarios — weekly Kanban calendar
+═══════════════════════════════════════════════════════════════ */
+
+/* ── Page shell ──────────────────────────────────────────────── */
+
+.page {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+/* ── Header ──────────────────────────────────────────────────── */
+
+.pageHeader {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.pageTitle {
+  font-size: 1.625rem;
+  font-weight: 700;
+  color: var(--adm-text-primary);
+  margin: 0 0 0.25rem;
+  line-height: 1.2;
+}
+
+.pageSubtitle {
+  font-size: 0.875rem;
+  color: var(--adm-text-secondary);
+  margin: 0;
+}
+
+/* ── Add turno form card ─────────────────────────────────────── */
+
+.formCard {
+  background: var(--adm-surface);
+  border: 1px solid var(--adm-border);
+  border-radius: var(--adm-radius-md);
+  padding: 1.5rem 1.75rem;
+}
+
+.formTitle {
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--adm-text-primary);
+  margin: 0 0 1.25rem;
+}
+
+.form {
+  width: 100%;
+}
+
+.formRow {
+  display: flex;
+  align-items: flex-end;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.formField {
+  display: flex;
+  flex-direction: column;
+  gap: 0.375rem;
+  flex: 1 1 160px;
+}
+
+.label {
+  font-size: 0.8125rem;
+  font-weight: 500;
+  color: var(--adm-text-secondary);
+}
+
+.input,
+.select {
+  height: 40px;
+  padding: 0 0.875rem;
+  border: 1px solid var(--adm-border);
+  border-radius: 8px;
+  background: var(--adm-bg);
+  color: var(--adm-text-primary);
+  font-size: 0.9rem;
+  font-family: inherit;
+  transition: border-color 150ms ease, box-shadow 150ms ease;
+  outline: none;
+}
+
+.input::placeholder {
+  color: #9ca3af;
+}
+
+.input:focus,
+.select:focus {
+  border-color: var(--adm-accent);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--adm-accent) 12%, transparent);
+}
+
+.submitBtn {
+  height: 40px;
+  padding: 0 1.25rem;
+  background: var(--adm-accent);
+  color: #ffffff;
+  border: none;
+  border-radius: 8px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  font-family: inherit;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: background 150ms ease, transform 100ms ease;
+}
+
+.submitBtn:hover {
+  background: #2d3139;
+}
+
+.submitBtn:active {
+  transform: scale(0.98);
+}
+
+/* ── Weekly grid ─────────────────────────────────────────────── */
+
+.gridWrapper {
+  overflow-x: auto;
+  /* Subtle scrollbar */
+  scrollbar-width: thin;
+  scrollbar-color: var(--adm-border) transparent;
+}
+
+.gridWrapper::-webkit-scrollbar {
+  height: 6px;
+}
+
+.gridWrapper::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.gridWrapper::-webkit-scrollbar-thumb {
+  background: var(--adm-border);
+  border-radius: 3px;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(7, minmax(148px, 1fr));
+  gap: 0.75rem;
+  min-width: 980px; /* ensures scroll kicks in before content collapses */
+}
+
+/* ── Day column ──────────────────────────────────────────────── */
+
+.column {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  background: var(--adm-surface);
+  border: 1px solid var(--adm-border);
+  border-radius: var(--adm-radius-md);
+  padding: 1rem 0.875rem;
+  min-height: 180px;
+  transition: border-color 200ms ease;
+}
+
+.columnToday {
+  border-color: var(--adm-accent);
+  background: color-mix(in srgb, var(--adm-accent) 4%, var(--adm-surface));
+}
+
+.columnHeader {
+  display: flex;
+  flex-direction: column;
+  gap: 0.125rem;
+  padding-bottom: 0.75rem;
+  border-bottom: 1px solid var(--adm-border);
+  margin-bottom: 0.25rem;
+}
+
+.diaNombre {
+  font-size: 0.8125rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--adm-text-secondary);
+}
+
+.diaFecha {
+  font-size: 0.9375rem;
+  font-weight: 600;
+  color: var(--adm-text-primary);
+}
+
+.diaFechaToday {
+  color: var(--adm-accent);
+}
+
+/* ── Turno list ──────────────────────────────────────────────── */
+
+.turnoList {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  flex: 1;
+}
+
+.empty {
+  font-size: 0.8125rem;
+  color: #d1d5db;
+  text-align: center;
+  margin: auto 0;
+  padding: 1rem 0;
+}
+
+/* ── TurnoCard ───────────────────────────────────────────────── */
+
+.turnoCard {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+  background: var(--adm-bg);
+  border: 1px solid var(--adm-border);
+  border-radius: 8px;
+  padding: 0.5rem 0.625rem;
+  transition: opacity 200ms ease, background 150ms ease;
+}
+
+.turnoCardPending {
+  opacity: 0.5;
+  pointer-events: none;
+}
+
+.turnoInfo {
+  display: flex;
+  flex-direction: column;
+  gap: 0.1rem;
+  min-width: 0;
+}
+
+.turnoEmpleado {
+  font-size: 0.8125rem;
+  font-weight: 600;
+  color: var(--adm-text-primary);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.turnoHora {
+  font-size: 0.75rem;
+  color: var(--adm-text-secondary);
+  white-space: nowrap;
+}
+
+.deleteBtn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 24px;
+  height: 24px;
+  border: none;
+  background: transparent;
+  border-radius: 6px;
+  color: #d1d5db;
+  cursor: pointer;
+  transition: background 150ms ease, color 150ms ease;
+}
+
+.deleteBtn:hover {
+  background: #fee2e2;
+  color: #ef4444;
+}
+
+.deleteBtn:disabled {
+  opacity: 0.4;
+  pointer-events: none;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+.spin {
+  animation: spin 0.8s linear infinite;
+}
+
+/* ── Mobile ──────────────────────────────────────────────────── */
+
+@media (max-width: 900px) {
+  .formRow {
+    gap: 0.875rem;
+  }
+
+  .formField {
+    flex: 1 1 140px;
+  }
+
+  .submitBtn {
+    flex: 1 1 100%;
+  }
+}

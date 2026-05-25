@@ -1,0 +1,110 @@
+/* ── Shared layout for legal pages ─────────────────────────── */
+
+.page {
+  min-height: 100dvh;
+  background-color: var(--color-bg);
+  padding-top: 9rem;
+  padding-bottom: var(--pad-y);
+  padding-left: var(--pad-x);
+  padding-right: var(--pad-x);
+}
+
+.inner {
+  max-width: 720px;
+  margin: 0 auto;
+}
+
+.eyebrow {
+  font-family: var(--font-body);
+  font-size: 0.75rem;
+  font-weight: 400;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--color-text-soft);
+  display: block;
+  margin-bottom: 1.2rem;
+}
+
+.title {
+  font-family: var(--font-display);
+  font-size: clamp(2.4rem, 5vw, 3.6rem);
+  font-weight: 300;
+  line-height: 1.05;
+  color: var(--color-text);
+  margin-bottom: 0.6rem;
+}
+
+.divider {
+  width: 2.5rem;
+  height: 1px;
+  background-color: var(--color-accent);
+  margin: 2rem 0;
+}
+
+.updated {
+  font-family: var(--font-body);
+  font-size: 0.8rem;
+  color: var(--color-text-soft);
+  margin-bottom: 3rem;
+}
+
+/* ── Body copy ──────────────────────────────────────────────── */
+.body h2 {
+  font-family: var(--font-display);
+  font-size: 1.5rem;
+  font-weight: 400;
+  color: var(--color-text);
+  margin-top: 2.8rem;
+  margin-bottom: 0.8rem;
+}
+
+.body p {
+  font-family: var(--font-body);
+  font-size: 0.95rem;
+  line-height: 1.75;
+  color: var(--color-text-mid);
+  font-weight: 300;
+  margin-bottom: 1rem;
+}
+
+.body ul {
+  padding-left: 1.4rem;
+  margin-bottom: 1rem;
+}
+
+.body li {
+  font-family: var(--font-body);
+  font-size: 0.95rem;
+  line-height: 1.75;
+  color: var(--color-text-mid);
+  font-weight: 300;
+  margin-bottom: 0.4rem;
+}
+
+.body a {
+  color: var(--color-accent);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.body strong {
+  font-weight: 500;
+  color: var(--color-text);
+}
+
+/* ── Back link ──────────────────────────────────────────────── */
+.back {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-family: var(--font-body);
+  font-size: 0.8rem;
+  font-weight: 400;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--color-text-soft);
+  margin-top: 4rem;
+  transition: color 200ms var(--ease-out);
+}
+
+.back:hover { color: var(--color-text); }

@@ -50,8 +50,15 @@
   box-sizing: border-box;
   margin: 0;
   padding: 0;
-  /* Hide native cursor — replaced by CustomCursor component */
-  cursor: none !important;
+}
+
+/* Hide native cursor only on pointer (mouse) devices — CustomCursor replaces it */
+@media (pointer: fine) {
+  *,
+  *::before,
+  *::after {
+    cursor: none !important;
+  }
 }
 
 html {

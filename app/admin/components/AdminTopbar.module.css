@@ -1,0 +1,126 @@
+/* ── Topbar ──────────────────────────────────────────────────── */
+.topbar {
+  height: var(--adm-topbar-h);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 2.5rem !important;
+  gap: 1rem;
+  /* Subtle separator — no harsh border */
+  border-bottom: 1px solid transparent;
+}
+
+/* ── Left ────────────────────────────────────────────────────── */
+.left {
+  display: flex;
+  align-items: center;
+  gap: 0.85rem;
+}
+
+.hamburger {
+  display: none; /* hidden on desktop */
+  align-items: center;
+  justify-content: center;
+  width: 38px;
+  height: 38px;
+  border: none;
+  background: var(--adm-surface);
+  border-radius: var(--adm-radius-sm);
+  color: var(--adm-text-primary);
+  box-shadow: var(--adm-shadow-card);
+  transition: box-shadow 150ms ease;
+}
+
+.hamburger:hover {
+  box-shadow: var(--adm-shadow-hover);
+}
+
+.greeting {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+}
+
+.greetingText {
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--adm-text-primary);
+  line-height: 1.2;
+}
+
+.greetingDate {
+  font-size: 0.78rem;
+  font-weight: 400;
+  color: var(--adm-text-muted);
+  line-height: 1.2;
+}
+
+/* ── Right ───────────────────────────────────────────────────── */
+.right {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+}
+
+/* ── Bell button ─────────────────────────────────────────────── */
+.iconBtn {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 38px;
+  height: 38px;
+  border: none;
+  background: var(--adm-surface);
+  border-radius: var(--adm-radius-sm);
+  color: var(--adm-text-secondary);
+  box-shadow: var(--adm-shadow-card);
+  transition: box-shadow 150ms ease, color 150ms ease;
+}
+
+.iconBtn:hover {
+  box-shadow: var(--adm-shadow-hover);
+  color: var(--adm-text-primary);
+}
+
+.badge {
+  position: absolute;
+  top: 6px;
+  right: 6px;
+  width: 15px;
+  height: 15px;
+  border-radius: 50%;
+  background-color: #ef4444;
+  color: #fff;
+  font-size: 0.6rem;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 1;
+  border: 2px solid var(--adm-bg);
+}
+
+/* ── Avatar ──────────────────────────────────────────────────── */
+.avatar {
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #1a1d23 0%, #374151 100%);
+  color: #fff;
+  font-size: 0.82rem;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  box-shadow: var(--adm-shadow-card);
+  letter-spacing: 0.04em;
+}
+
+/* ── Mobile ──────────────────────────────────────────────────── */
+@media (max-width: 900px) {
+  .hamburger {
+    display: flex;
+  }
+}

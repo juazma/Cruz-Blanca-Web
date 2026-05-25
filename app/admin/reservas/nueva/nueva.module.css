@@ -1,0 +1,238 @@
+/* ═══════════════════════════════════════════════════════════════
+   Nueva Reserva — página + formulario
+═══════════════════════════════════════════════════════════════ */
+
+/* ── Página: centra la card horizontalmente ──────────────────── */
+.page {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 0.5rem 0 3rem;
+  gap: 1.25rem;
+}
+
+/* ── Back link ───────────────────────────────────────────────── */
+.backLink {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  align-self: flex-start;           /* alineado a la izquierda */
+  font-size: 0.825rem;
+  font-weight: 500;
+  color: var(--adm-text-secondary);
+  text-decoration: none;
+  transition: color 150ms ease;
+}
+
+.backLink:hover { color: var(--adm-text-primary); }
+
+/* ── Card principal ──────────────────────────────────────────── */
+.card {
+  width: 100%;
+  max-width: 560px;
+  background-color: var(--adm-surface);
+  border-radius: var(--adm-radius-lg);
+  box-shadow: var(--adm-shadow-card);
+  padding: 2rem 2rem 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+/* ── Card header ─────────────────────────────────────────────── */
+.cardHeader {
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+}
+
+.iconWrap {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  border-radius: var(--adm-radius-sm);
+  background-color: var(--adm-bg);
+  color: var(--adm-text-primary);
+  flex-shrink: 0;
+}
+
+.title {
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: var(--adm-text-primary);
+  line-height: 1.25;
+  margin-bottom: 0.25rem;
+}
+
+.subtitle {
+  font-size: 0.825rem;
+  color: var(--adm-text-secondary);
+  font-weight: 400;
+  line-height: 1.4;
+}
+
+/* ── Divider ─────────────────────────────────────────────────── */
+.divider {
+  height: 1px;
+  background-color: var(--adm-border);
+  margin: 0 -2rem;                  /* sangra hasta el borde de la card */
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   FORMULARIO
+═══════════════════════════════════════════════════════════════ */
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+}
+
+/* ── Campo ───────────────────────────────────────────────────── */
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.45rem;
+}
+
+/* ── Fila doble (fecha + hora) ───────────────────────────────── */
+.row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+}
+
+/* ── Label ───────────────────────────────────────────────────── */
+.label {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--adm-text-secondary);
+}
+
+.optional {
+  font-weight: 400;
+  text-transform: none;
+  letter-spacing: 0;
+  color: var(--adm-text-muted);
+}
+
+/* ── Input / Textarea ────────────────────────────────────────── */
+.input {
+  width: 100%;
+  padding: 0.65rem 0.875rem;
+  border: 1.5px solid var(--adm-border);
+  border-radius: var(--adm-radius-sm);
+  background-color: var(--adm-bg);
+  font-family: var(--adm-font);
+  font-size: 0.9rem;
+  font-weight: 400;
+  color: var(--adm-text-primary);
+  outline: none;
+  transition: border-color 150ms ease, box-shadow 150ms ease, background 150ms ease;
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+.input::placeholder {
+  color: var(--adm-text-muted);
+  font-weight: 300;
+}
+
+.input:focus {
+  border-color: var(--adm-text-primary);
+  box-shadow: 0 0 0 3px rgba(26, 29, 35, 0.08);
+  background-color: var(--adm-surface);
+}
+
+.input:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* Tipo date y time necesitan altura explícita en algunos browsers */
+input[type="date"].input,
+input[type="time"].input {
+  height: 42px;
+}
+
+.textarea {
+  resize: vertical;
+  min-height: 80px;
+  line-height: 1.5;
+}
+
+/* ── Botones de acción ───────────────────────────────────────── */
+.actions {
+  display: flex;
+  gap: 0.75rem;
+  justify-content: flex-end;
+  padding-top: 0.5rem;
+}
+
+.cancelBtn {
+  padding: 0.65rem 1.25rem;
+  border: 1.5px solid var(--adm-border);
+  border-radius: var(--adm-radius-sm);
+  background: transparent;
+  font-family: var(--adm-font);
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: var(--adm-text-secondary);
+  cursor: pointer;
+  transition: background 150ms ease, color 150ms ease, border-color 150ms ease;
+}
+
+.cancelBtn:hover:not(:disabled) {
+  background-color: var(--adm-bg);
+  color: var(--adm-text-primary);
+  border-color: var(--adm-text-muted);
+}
+
+.cancelBtn:disabled { opacity: 0.5; cursor: not-allowed; }
+
+.submitBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  padding: 0.65rem 1.5rem;
+  border: none;
+  border-radius: var(--adm-radius-sm);
+  background-color: var(--adm-accent);
+  color: var(--adm-accent-text);
+  font-family: var(--adm-font);
+  font-size: 0.875rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 150ms ease, transform 100ms ease;
+}
+
+.submitBtn:hover:not(:disabled)  { background-color: #2d3139; }
+.submitBtn:active:not(:disabled) { transform: scale(0.97); }
+.submitBtn:disabled               { opacity: 0.6; cursor: not-allowed; }
+
+/* ── Spinner ─────────────────────────────────────────────────── */
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+.spin {
+  animation: spin 0.7s linear infinite;
+  display: inline-block;
+  flex-shrink: 0;
+}
+
+/* ── Responsive ──────────────────────────────────────────────── */
+@media (max-width: 600px) {
+  .card { padding: 1.5rem 1.25rem; }
+  .divider { margin: 0 -1.25rem; }
+  .row { grid-template-columns: 1fr; }
+  .actions { flex-direction: column-reverse; }
+  .cancelBtn,
+  .submitBtn { width: 100%; justify-content: center; }
+}

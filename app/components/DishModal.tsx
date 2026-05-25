@@ -7,15 +7,16 @@ import styles from "./DishModal.module.css";
 // ── TYPES ──────────────────────────────────────────────────────────────────
 
 type Dish = {
-  id: number;
+  id: string | number;
   nombre: string;
   descripcion: string;
   precio: number;
   categoria: string;
   imagen: string;
   alergenos: string[];
+  disponible?: boolean;
   maridaje?: string;
-  tags: { saciedad: string; sabor: string[]; base: string; ocasion: string };
+  tags?: { saciedad: string; sabor: string[]; base: string; ocasion: string };
 };
 
 // ── CONSTANTS ──────────────────────────────────────────────────────────────

@@ -1,0 +1,80 @@
+/* ═══════════════════════════════════════════════════════════════
+   Cruz Blanca Admin — Design tokens & CSS reset
+   Scoped to .admin-root so it never bleeds into the public site
+═══════════════════════════════════════════════════════════════ */
+
+.admin-root {
+  /* ── Fonts ──────────────────────────────────────────────── */
+  --adm-font: var(--font-outfit-admin, "Outfit", system-ui, sans-serif);
+
+  /* ── Palette ────────────────────────────────────────────── */
+  --adm-bg:           #f4f5f7;   /* canvas hueso-gris */
+  --adm-surface:      #ffffff;   /* tarjetas y sidebar */
+  --adm-border:       #e8eaed;   /* bordes suaves */
+
+  --adm-text-primary: #1a1d23;   /* casi negro, no puro */
+  --adm-text-secondary: #6b7280; /* gris medio */
+  --adm-text-muted:   #9ca3af;   /* placeholder */
+
+  --adm-accent:       #1a1d23;   /* negro suave para activos */
+  --adm-accent-text:  #ffffff;
+
+  /* ── Metric card accents ────────────────────────────────── */
+  --adm-green-bg:     #d1fae5;   /* reservas */
+  --adm-green-fg:     #065f46;
+  --adm-red-bg:       #fee2e2;   /* alertas stock */
+  --adm-red-fg:       #991b1b;
+  --adm-blue-bg:      #dbeafe;   /* accesos rápidos */
+  --adm-blue-fg:      #1e40af;
+  --adm-amber-bg:     #fef3c7;
+  --adm-amber-fg:     #92400e;
+
+  /* ── Chart ──────────────────────────────────────────────── */
+  --adm-chart-stroke: #10b981;
+  --adm-chart-fill-start: rgba(16, 185, 129, 0.22);
+  --adm-chart-fill-end:   rgba(16, 185, 129, 0);
+
+  /* ── Shape & spacing ────────────────────────────────────── */
+  --adm-radius-lg:    24px;
+  --adm-radius-md:    16px;
+  --adm-radius-sm:    10px;
+  --adm-shadow-card:  0 2px 8px rgba(0, 0, 0, 0.04), 0 0 0 1px rgba(0,0,0,0.04);
+  --adm-shadow-hover: 0 8px 28px rgba(0, 0, 0, 0.09), 0 0 0 1px rgba(0,0,0,0.05);
+
+  --adm-sidebar-w:    240px;
+  --adm-topbar-h:     68px;
+  --adm-gap:          1rem;
+
+  /* Reset inside admin */
+  font-family: var(--adm-font);
+  color: var(--adm-text-primary);
+
+  /* Restore normal cursors (overriding public site's cursor: none) */
+  cursor: auto !important;
+}
+
+.admin-root *,
+.admin-root *::before,
+.admin-root *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  cursor: inherit;
+}
+
+.admin-root button  { cursor: pointer !important; }
+.admin-root input,
+.admin-root textarea,
+.admin-root select  { cursor: text !important; }
+.admin-root a       { cursor: pointer !important; }
+
+.admin-root img, .admin-root svg {
+  display: block;
+  max-width: 100%;
+}
+
+.admin-root p {
+  font-family: var(--adm-font);
+  color: var(--adm-text-secondary);
+  line-height: 1.6;
+}

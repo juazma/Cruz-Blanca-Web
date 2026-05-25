@@ -1,0 +1,288 @@
+/* ═══════════════════════════════════════════════════════════════
+   Gestor de Reservas — página + tarjetas
+═══════════════════════════════════════════════════════════════ */
+
+/* ── Página ──────────────────────────────────────────────────── */
+.page {
+  display: flex;
+  flex-direction: column;
+  gap: 2.5rem;
+  padding: 0.5rem 0 3rem;
+}
+
+/* ── Page header ─────────────────────────────────────────────── */
+.pageHeader {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.pageTitle {
+  font-size: 1.6rem;
+  font-weight: 600;
+  color: var(--adm-text-primary);
+  line-height: 1.2;
+  margin-bottom: 0.25rem;
+}
+
+.pageSubtitle {
+  font-size: 0.875rem;
+  color: var(--adm-text-secondary);
+  font-weight: 400;
+}
+
+.newBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.6rem 1.25rem;
+  background-color: var(--adm-accent);
+  color: var(--adm-accent-text);
+  border-radius: var(--adm-radius-sm);
+  font-size: 0.875rem;
+  font-weight: 500;
+  text-decoration: none;
+  white-space: nowrap;
+  transition: background 150ms ease, transform 100ms ease;
+}
+
+.newBtn:hover  { background-color: #2d3139; }
+.newBtn:active { transform: scale(0.97); }
+
+/* ── Sección de turno ────────────────────────────────────────── */
+.turno {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.turnoHeader {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.turnoBadge {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 30px;
+  height: 30px;
+  border-radius: 8px;
+  flex-shrink: 0;
+}
+
+.turnoBadgeComida {
+  background-color: var(--adm-amber-bg);
+  color: var(--adm-amber-fg);
+}
+
+.turnoBadgeCena {
+  background-color: var(--adm-blue-bg);
+  color: var(--adm-blue-fg);
+}
+
+.turnoTitle {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--adm-text-primary);
+  white-space: nowrap;
+}
+
+.turnoCount {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 22px;
+  height: 22px;
+  padding: 0 6px;
+  border-radius: 99px;
+  background-color: var(--adm-border);
+  color: var(--adm-text-secondary);
+  font-size: 0.72rem;
+  font-weight: 600;
+}
+
+.turnoLine {
+  flex: 1;
+  height: 1px;
+  background-color: var(--adm-border);
+}
+
+/* ── Grid de tarjetas ────────────────────────────────────────── */
+.cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 1rem;
+}
+
+/* ── Tarjeta de reserva ──────────────────────────────────────── */
+.card {
+  background-color: var(--adm-surface);
+  border-radius: var(--adm-radius-md);
+  padding: 1.1rem 1.25rem;
+  box-shadow: var(--adm-shadow-card);
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  transition: transform 200ms ease, box-shadow 200ms ease, opacity 200ms ease;
+  border: 1.5px solid transparent;
+}
+
+.card:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--adm-shadow-hover);
+}
+
+/* Atenuado mientras espera la respuesta del servidor */
+.cardPending {
+  opacity: 0.6;
+  pointer-events: none;
+}
+
+/* ── Top row: nombre + badge ─────────────────────────────────── */
+.cardTop {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 0.5rem;
+}
+
+.cardInfo {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  flex: 1;
+  min-width: 0;
+}
+
+.clientName {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--adm-text-primary);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.meta {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.metaItem {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  font-size: 0.78rem;
+  color: var(--adm-text-secondary);
+}
+
+/* ── Estado badge ────────────────────────────────────────────── */
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  padding: 0.22rem 0.6rem;
+  border-radius: 99px;
+  font-size: 0.72rem;
+  font-weight: 600;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.badgeAmbar {
+  background-color: var(--adm-amber-bg);
+  color: var(--adm-amber-fg);
+}
+
+.badgeAzul {
+  background-color: var(--adm-blue-bg);
+  color: var(--adm-blue-fg);
+}
+
+.badgeVerde {
+  background-color: var(--adm-green-bg);
+  color: var(--adm-green-fg);
+}
+
+.badgeRojo {
+  background-color: var(--adm-red-bg);
+  color: var(--adm-red-fg);
+}
+
+/* ── Notas ───────────────────────────────────────────────────── */
+.notas {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.4rem;
+  font-size: 0.78rem;
+  color: var(--adm-text-secondary);
+  font-style: italic;
+  line-height: 1.45;
+  padding: 0.5rem 0.6rem;
+  background-color: var(--adm-bg);
+  border-radius: 6px;
+  border-left: 2.5px solid var(--adm-border);
+}
+
+/* ── Botones de acción ───────────────────────────────────────── */
+.actions {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+  margin-top: 0.1rem;
+}
+
+.actionBtn {
+  flex: 1;
+  min-width: 90px;
+  padding: 0.42rem 0.75rem;
+  border: 1.5px solid var(--adm-border);
+  border-radius: 6px;
+  background: transparent;
+  font-size: 0.775rem;
+  font-weight: 500;
+  font-family: var(--adm-font);
+  color: var(--adm-text-secondary);
+  cursor: pointer;
+  transition: background 150ms ease, color 150ms ease, border-color 150ms ease;
+}
+
+.actionBtn:hover { background-color: var(--adm-bg); color: var(--adm-text-primary); }
+
+/* Variantes por estado destino */
+.actionBtnConfirmada:hover  { background-color: var(--adm-blue-bg);  color: var(--adm-blue-fg);  border-color: var(--adm-blue-fg);  }
+.actionBtnCompletada:hover  { background-color: var(--adm-green-bg); color: var(--adm-green-fg); border-color: var(--adm-green-fg); }
+.actionBtnCancelada:hover   { background-color: var(--adm-red-bg);   color: var(--adm-red-fg);   border-color: var(--adm-red-fg);   }
+.actionBtnPendiente:hover   { background-color: var(--adm-amber-bg); color: var(--adm-amber-fg); border-color: var(--adm-amber-fg); }
+
+/* ── Empty state ─────────────────────────────────────────────── */
+.empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 2.5rem 1rem;
+  color: var(--adm-text-muted);
+  font-size: 0.875rem;
+  background-color: var(--adm-surface);
+  border-radius: var(--adm-radius-md);
+  border: 1.5px dashed var(--adm-border);
+  text-align: center;
+}
+
+/* ── Spinner icon ────────────────────────────────────────────── */
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+.spin {
+  animation: spin 0.7s linear infinite;
+  display: inline-block;
+}

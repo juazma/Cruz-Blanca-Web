@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState, useCallback } from "react";
+import { usePathname } from "next/navigation";
 import styles from "./StickyHeader.module.css";
 
 const NAV_LINKS = [
@@ -13,6 +14,7 @@ const NAV_LINKS = [
 const SYMBOL = "›";
 
 export default function StickyHeader() {
+  const pathname = usePathname();
   const [visible,    setVisible]    = useState(false);
   const [menuOpen,   setMenuOpen]   = useState(false);
 
@@ -42,7 +44,7 @@ export default function StickyHeader() {
 
       {/* Desktop nav */}
       <nav className={styles.nav} aria-label="Navegación principal">
-        {NAV_LINKS.map((l) => (
+        {NAV_LINKS.filter((l) => l.href !== "#contacto" || pathname === "/").map((l) => (
           <a key={l.href} href={l.href} className={styles.navLink}>
             <span className={styles.symbol}>{SYMBOL}</span>{l.label}
           </a>
@@ -70,7 +72,7 @@ export default function StickyHeader() {
         aria-label="Menú móvil"
         aria-hidden={!menuOpen}
       >
-        {NAV_LINKS.map((l) => (
+        {NAV_LINKS.filter((l) => l.href !== "#contacto" || pathname === "/").map((l) => (
           <a key={l.href} href={l.href} onClick={close} className={styles.drawerLink}>
             <span className={styles.symbol}>{SYMBOL}</span>{l.label}
           </a>

@@ -1,0 +1,253 @@
+.grid {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  gap: 1.5rem;
+  padding: 1rem;
+}
+
+.card {
+  background-color: var(--adm-surface);
+  border-radius: var(--adm-radius-lg);
+  box-shadow: var(--adm-shadow-card);
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.card:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--adm-shadow-hover);
+}
+
+.cardAfluencia {
+  grid-column: span 12;
+  min-height: 400px;
+}
+
+@media (min-width: 1024px) {
+  .cardAfluencia {
+    grid-column: span 8;
+    grid-row: span 2;
+  }
+}
+
+.cardSmall {
+  grid-column: span 12;
+}
+
+@media (min-width: 768px) {
+  .cardSmall {
+    grid-column: span 6;
+  }
+}
+
+@media (min-width: 1024px) {
+  .cardSmall {
+    grid-column: span 4;
+  }
+}
+
+.cardAccesos {
+  grid-column: span 12;
+}
+
+.cardHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 1.5rem;
+}
+
+.cardTitle {
+  font-size: 1.25rem;
+  font-weight: 600;
+  margin-bottom: 0.25rem;
+  color: var(--adm-text-primary);
+}
+
+.cardSubtitle {
+  font-size: 0.875rem;
+  color: var(--adm-text-secondary);
+}
+
+.iconBadge {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+}
+
+.iconGreen {
+  background-color: var(--adm-green-bg);
+  color: var(--adm-green-fg);
+}
+
+.iconRed {
+  background-color: var(--adm-red-bg);
+  color: var(--adm-red-fg);
+}
+
+.chartWrap {
+  flex: 1;
+  min-height: 200px;
+  margin-bottom: 1.5rem;
+}
+
+.chartFallback {
+  width: 100%;
+  height: 100%;
+  background-color: var(--adm-bg);
+  border-radius: var(--adm-radius-md);
+  opacity: 0.5;
+}
+
+.statsRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--adm-border);
+}
+
+.stat {
+  display: flex;
+  flex-direction: column;
+}
+
+.statNum {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--adm-text-primary);
+}
+
+.statGreen {
+  color: var(--adm-green-fg);
+}
+
+.statLabel {
+  font-size: 0.875rem;
+  color: var(--adm-text-secondary);
+}
+
+.statDivider {
+  width: 1px;
+  height: 2rem;
+  background-color: var(--adm-border);
+}
+
+.bigNumber {
+  display: block;
+  font-size: 2.5rem;
+  font-weight: 700;
+  margin-top: 0.5rem;
+  color: var(--adm-text-primary);
+}
+
+.bigNumberRed {
+  color: var(--adm-red-fg);
+}
+
+.progressWrap {
+  margin-top: auto;
+  margin-bottom: 1rem;
+}
+
+.progressTrack {
+  height: 6px;
+  background-color: var(--adm-border);
+  border-radius: 3px;
+  overflow: hidden;
+  margin-bottom: 0.5rem;
+}
+
+.progressBar {
+  height: 100%;
+  border-radius: 3px;
+}
+
+.progressGreen {
+  background-color: var(--adm-chart-stroke);
+}
+
+.progressLabel {
+  font-size: 0.875rem;
+  color: var(--adm-text-secondary);
+}
+
+.tagRow {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.tag {
+  font-size: 0.75rem;
+  font-weight: 500;
+  padding: 0.25rem 0.5rem;
+  border-radius: 4px;
+}
+
+.tagGreen {
+  background-color: var(--adm-green-bg);
+  color: var(--adm-green-fg);
+}
+
+.alertList {
+  list-style: none;
+  margin-top: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.alertItem {
+  display: flex;
+  align-items: center;
+  font-size: 0.875rem;
+}
+
+.alertDot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background-color: var(--adm-red-fg);
+  margin-right: 0.75rem;
+}
+
+.alertName {
+  flex: 1;
+  color: var(--adm-text-primary);
+}
+
+.alertCount {
+  font-weight: 600;
+  color: var(--adm-text-secondary);
+}
+
+.pillGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  gap: 1rem;
+  margin-top: auto;
+}
+
+.pill {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1rem;
+  background-color: var(--adm-bg);
+  color: var(--adm-text-primary);
+  border-radius: var(--adm-radius-md);
+  text-decoration: none;
+  font-size: 0.875rem;
+  font-weight: 500;
+  transition: background-color 0.2s ease;
+}
+
+.pill:hover {
+  background-color: var(--adm-blue-bg);
+  color: var(--adm-blue-fg);
+}

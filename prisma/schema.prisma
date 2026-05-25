@@ -1,0 +1,58 @@
+// ─────────────────────────────────────────────────────────────────
+// Cruz Blanca — Prisma Schema
+// Provider : SQLite  |  DB file : ./prisma/dev.db
+// ─────────────────────────────────────────────────────────────────
+
+generator client {
+  provider = "prisma-client"
+  output   = "../app/generated/prisma"
+}
+
+datasource db {
+  provider = "sqlite"
+}
+
+// ─── RESERVAS ────────────────────────────────────────────────────
+model Reserva {
+  id             String   @id @default(uuid())
+  nombreCliente  String
+  comensales     Int
+  fechaHora      DateTime
+  // Posibles valores: PENDIENTE | CONFIRMADA | COMPLETADA | CANCELADA
+  estado         String   @default("PENDIENTE")
+  notas          String?
+  createdAt      DateTime @default(now())
+}
+
+// ─── PRODUCTOS (inventario) ───────────────────────────────────────
+model Producto {
+  id          String   @id @default(uuid())
+  nombre      String
+  categoria   String
+  cantidad    Int      @default(0)
+  stockMinimo Int      @default(5)
+  createdAt   DateTime @default(now())
+}
+
+// ─── PLATOS (carta) ──────────────────────────────────────────
+model Plato {
+  id          String   @id @default(uuid())
+  nombre      String
+  descripcion String
+  precio      Float
+  categoria   String
+  alergenos   String   @default("[]")
+  disponible  Boolean  @default(true)
+  imagen      String?
+  createdAt   DateTime @default(now())
+}
+
+// ─── TURNOS ──────────────────────────────────────────────────────
+model Turno {
+  id         String   @id @default(uuid())
+  empleado   String
+  dia        DateTime
+  horaInicio String
+  horaFin    String
+  createdAt  DateTime @default(now())
+}
