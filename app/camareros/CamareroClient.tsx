@@ -186,19 +186,27 @@ export default function CamareroClient({ comandas, platos, camarero }: Props) {
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img src="/logo.svg" alt="Cruz Blanca" className={styles.topbarLogo} style={{ height: '20px' }} />
         <div className={styles.topbarActions}>
-          <button
-            className={styles.managerBtn}
-            onClick={() => {
-              setShowMesaManager((v) => !v);
-              setDetailOpen(false);
-            }}
-            title="Gestionar mesas"
-          >
-            ⚙ Mesas
-          </button>
-          <button className={styles.logoutBtn} onClick={handleLogout}>
-            Salir
-          </button>
+          {selectedMesa ? (
+            <button className={styles.backTopbarBtn} onClick={handleBack}>
+              ‹ Mesas
+            </button>
+          ) : (
+            <>
+              <button
+                className={styles.managerBtn}
+                onClick={() => {
+                  setShowMesaManager((v) => !v);
+                  setDetailOpen(false);
+                }}
+                title="Gestionar mesas"
+              >
+                ⚙ Mesas
+              </button>
+              <button className={styles.logoutBtn} onClick={handleLogout}>
+                Salir
+              </button>
+            </>
+          )}
         </div>
       </header>
 
@@ -286,21 +294,9 @@ export default function CamareroClient({ comandas, platos, camarero }: Props) {
           ) : (
             <>
               <div className={styles.detailHeader}>
-                <button className={styles.backBtn} onClick={handleBack}>
-                  ‹
-                </button>
                 <span className={styles.detailTitle}>
                   Mesa {selectedMesa}
                 </span>
-                {comanda && (
-                  <button
-                    className={styles.finalizarBtn}
-                    onClick={handleFinalizar}
-                    disabled={pending}
-                  >
-                    Cobrar
-                  </button>
-                )}
               </div>
 
               <div className={styles.detailBody}>
@@ -420,10 +416,27 @@ export default function CamareroClient({ comandas, platos, camarero }: Props) {
               {/* Total bar */}
               {comanda && (
                 <div className={styles.totalBar}>
-                  <span>Total comanda</span>
-                  <span className={styles.totalAmount}>
-                    {totalComanda.toFixed(2)} €
-                  </span>
+                  <div className={styles.totalTextCol}>
+                    <span className={styles.totalLabel}>Total comanda</span>
+                    <span className={styles.totalAmount}>
+                      {totalComanda.toFixed(2)} €
+                    </span>
+                  </div>
+                  {/* Cobrar button only if all items are LISTO or ENTREGADO */}
+                  {comanda.items.length > 0 && comanda.items.every(i => i.estado === "LISTO" || i.estado === "ENTREGADO") ? (
+                    <button
+                      className={styles.cobrarBottomBtn}
+                      onClick={handleFinalizar}
+                      disabled={pending}
+                      title="Terminar y liberar mesa (todos los productos listos)"
+                    >
+                      {pending ? "…" : "Cobrar y Liberar Mesa"}
+                    </button>
+                  ) : (
+                    <span className={styles.cobrarWarning} title="No se puede cobrar hasta que cocina termine todos los platos">
+                      Pendiente en cocina
+                    </span>
+                  )}
                 </div>
               )}
             </>

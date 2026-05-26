@@ -109,6 +109,24 @@
   border-color: #d1d5db;
 }
 
+.backTopbarBtn {
+  height: 34px;
+  padding: 0 1rem;
+  background: var(--adm-accent);
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  font-size: 0.8125rem;
+  font-weight: 600;
+  font-family: inherit;
+  cursor: pointer;
+  transition: background 150ms ease;
+}
+
+.backTopbarBtn:hover {
+  background: #2d3139;
+}
+
 /* ── Two-panel layout ──────────────────────────────────────────── */
 .body {
   flex: 1;
@@ -662,16 +680,62 @@
   padding: 1rem 1.25rem;
   border-top: 1px solid var(--adm-border);
   background: var(--adm-surface);
-  font-weight: 600;
-  font-size: 0.9375rem;
-  color: var(--adm-text-primary);
   position: sticky;
   bottom: 0;
   box-shadow: 0 -2px 8px rgba(0,0,0,0.04);
+  gap: 1rem;
+}
+
+.totalTextCol {
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+}
+
+.totalLabel {
+  font-size: 0.75rem;
+  font-weight: 500;
+  color: var(--adm-text-secondary);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
 }
 
 .totalAmount {
-  font-weight: 700;
-  font-size: 1.125rem;
+  font-weight: 800;
+  font-size: 1.25rem;
   color: var(--adm-text-primary);
+}
+
+.cobrarBottomBtn {
+  height: 40px;
+  padding: 0 1.5rem;
+  background: #059669; /* green */
+  color: #ffffff;
+  border: none;
+  border-radius: 8px;
+  font-size: 0.875rem;
+  font-weight: 700;
+  font-family: inherit;
+  cursor: pointer;
+  transition: background 150ms ease, transform 100ms ease;
+  white-space: nowrap;
+}
+
+.cobrarBottomBtn:hover {
+  background: #047857;
+}
+
+.cobrarBottomBtn:active {
+  transform: scale(0.97);
+}
+
+.cobrarWarning {
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--adm-amber-fg);
+  background: var(--adm-amber-bg);
+  border: 1px solid color-mix(in srgb, var(--adm-amber-fg) 20%, transparent);
+  border-radius: 6px;
+  padding: 0.35rem 0.75rem;
+  white-space: nowrap;
 }

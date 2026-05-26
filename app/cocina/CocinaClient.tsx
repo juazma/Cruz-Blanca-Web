@@ -83,10 +83,8 @@ export default function CocinaClient({ comandas }: Props) {
       <header className={styles.topbar}>
         <div className={styles.topbarLeft}>
           <img src="/logo.svg" alt="Cruz Blanca" className={styles.topbarLogo} style={{ height: '20px' }} />
-          <span className={styles.topbarRole}>🍳 Panel de Cocina</span>
         </div>
         <div className={styles.topbarRight}>
-          <span className={styles.refreshLabel}>↻ auto 5 s</span>
           <button className={styles.logoutBtn} onClick={handleLogout}>
             Salir
           </button>
