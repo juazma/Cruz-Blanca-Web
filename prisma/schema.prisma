@@ -45,15 +45,40 @@ model BloqueoReserva {
 
 // ─── PLATOS (carta) ──────────────────────────────────────────
 model Plato {
-  id          String   @id @default(uuid())
-  nombre      String
-  descripcion String
-  precio      Float
-  categoria   String
-  alergenos   String   @default("[]")
-  disponible  Boolean  @default(true)
-  imagen      String?
-  createdAt   DateTime @default(now())
+  id           String        @id @default(uuid())
+  nombre       String
+  descripcion  String
+  precio       Float
+  categoria    String
+  alergenos    String        @default("[]")
+  disponible   Boolean       @default(true)
+  imagen       String?
+  createdAt    DateTime      @default(now())
+  comandaItems ComandaItem[]
+}
+
+// ─── COMANDAS ─────────────────────────────────────────────────
+model Comanda {
+  id        String        @id @default(uuid())
+  mesa      String
+  estado    String        @default("ABIERTA") // ABIERTA | PAGADA
+  camarero  String
+  items     ComandaItem[]
+  createdAt DateTime      @default(now())
+  updatedAt DateTime      @updatedAt
+}
+
+// ─── COMANDA ITEMS ────────────────────────────────────────────
+model ComandaItem {
+  id        String   @id @default(uuid())
+  comandaId String
+  comanda   Comanda  @relation(fields: [comandaId], references: [id], onDelete: Cascade)
+  platoId   String
+  plato     Plato    @relation(fields: [platoId], references: [id])
+  cantidad  Int      @default(1)
+  notas     String?
+  estado    String   @default("PENDIENTE") // PENDIENTE | PREPARANDO | LISTO | ENTREGADO
+  createdAt DateTime @default(now())
 }
 
 // ─── TURNOS ──────────────────────────────────────────────────────
