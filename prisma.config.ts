@@ -1,6 +1,6 @@
-// Prisma 7 configuration — datasource URL lives here, not in schema.prisma
-import "dotenv/config";
-import path from "node:path";
+// Prisma 7 configuration
+import dotenv from "dotenv";
+dotenv.config({ path: ".env.local" });
 import { defineConfig } from "prisma/config";
 
 export default defineConfig({
@@ -9,7 +9,6 @@ export default defineConfig({
     path: "prisma/migrations",
   },
   datasource: {
-    // SQLite file path relative to project root
-    url: `file:${path.join(process.cwd(), "dev.db")}`,
+    url: process.env.PRISMA_DATABASE_URL,
   },
 });

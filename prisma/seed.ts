@@ -3,14 +3,13 @@
  * Ejecutar: npx tsx prisma/seed.ts
  */
 
-import path from "node:path";
-import Database from "better-sqlite3";
-import { PrismaBetterSqlite3 } from "@prisma/adapter-better-sqlite3";
+import { Pool } from "pg";
+import { PrismaPg } from "@prisma/adapter-pg";
 import { PrismaClient } from "../app/generated/prisma/client";
 
-const DB_PATH = path.join(process.cwd(), "dev.db");
-const adapter = new PrismaBetterSqlite3({ url: DB_PATH });
-const prisma  = new PrismaClient({ adapter });
+const pool = new Pool({ connectionString: process.env.PRISMA_DATABASE_URL });
+const adapter = new PrismaPg(pool);
+const prisma = new PrismaClient({ adapter });
 
 // ── Helpers ───────────────────────────────────────────────────────
 /** Devuelve un Date en la fecha de hoy a una hora concreta (hora local) */
