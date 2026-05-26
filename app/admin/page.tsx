@@ -1,4 +1,5 @@
 import { Suspense } from "react";
+import Link from "next/link";
 import {
   CalendarCheck,
   AlertTriangle,
@@ -87,7 +88,7 @@ export default async function AdminOverviewPage() {
       {/* ══════════════════════════════════════════════════════
           CAJA 2 — Reservas de hoy (datos reales)
       ══════════════════════════════════════════════════════ */}
-      <div className={`${styles.card} ${styles.cardSmall}`}>
+      <Link href="/admin/reservas" className={`${styles.card} ${styles.cardSmall}`}>
         <div className={styles.cardHeader}>
           <div>
             <p className={styles.cardSubtitle}>Reservas para hoy</p>
@@ -118,12 +119,12 @@ export default async function AdminOverviewPage() {
             {reservasCena.length} cena
           </span>
         </div>
-      </div>
+      </Link>
 
       {/* ══════════════════════════════════════════════════════
           CAJA 3 — Alertas de stock (datos reales)
       ══════════════════════════════════════════════════════ */}
-      <div className={`${styles.card} ${styles.cardSmall}`}>
+      <Link href="/admin/inventario" className={`${styles.card} ${styles.cardSmall}`}>
         <div className={styles.cardHeader}>
           <div>
             <p className={styles.cardSubtitle}>Alertas de stock</p>
@@ -152,7 +153,7 @@ export default async function AdminOverviewPage() {
             </li>
           )}
         </ul>
-      </div>
+      </Link>
 
       {/* ══════════════════════════════════════════════════════
           CAJA 4 — Accesos rápidos

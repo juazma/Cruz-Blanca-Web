@@ -197,6 +197,91 @@
 }
 
 /* ═══════════════════════════════════════════════════════════════
+   FORMULARIO DE NUEVO PRODUCTO
+═══════════════════════════════════════════════════════════════ */
+.formCard {
+  background: var(--adm-surface);
+  border: 1px solid var(--adm-border);
+  border-radius: var(--adm-radius-md);
+  padding: 1.375rem 1.75rem;
+}
+
+.formTitle {
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--adm-text-primary);
+  margin: 0 0 1.125rem;
+}
+
+.form { width: 100%; }
+
+.formRow {
+  display: flex;
+  align-items: flex-end;
+  gap: 0.875rem;
+  flex-wrap: wrap;
+}
+
+.formField {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  min-width: 0;
+}
+
+.formFieldBtn {
+  display: flex;
+  align-items: flex-end;
+  flex-shrink: 0;
+}
+
+.label {
+  font-size: 0.8rem;
+  font-weight: 500;
+  color: var(--adm-text-secondary);
+}
+
+.input {
+  height: 38px;
+  padding: 0 0.8rem;
+  border: 1px solid var(--adm-border);
+  border-radius: 8px;
+  background: var(--adm-bg);
+  color: var(--adm-text-primary);
+  font-size: 0.875rem;
+  font-family: inherit;
+  outline: none;
+  transition: border-color 150ms ease, box-shadow 150ms ease;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.input::placeholder { color: #9ca3af; }
+
+.input:focus {
+  border-color: var(--adm-accent);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--adm-accent) 12%, transparent);
+}
+
+.submitBtn {
+  height: 38px;
+  padding: 0 1.25rem;
+  background: var(--adm-accent);
+  color: #ffffff;
+  border: none;
+  border-radius: 8px;
+  font-size: 0.875rem;
+  font-weight: 600;
+  font-family: inherit;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: background 150ms ease, transform 100ms ease;
+}
+
+.submitBtn:hover  { background: #2d3139; }
+.submitBtn:active { transform: scale(0.98); }
+
+/* ═══════════════════════════════════════════════════════════════
    CONTROLES +/−
 ═══════════════════════════════════════════════════════════════ */
 .controles {
@@ -264,6 +349,44 @@
 .ctrlNumPending {
   opacity: 0.4;
 }
+
+/* ── Fila controles + eliminar ───────────────────────────────── */
+.controlesRow {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+/* El stepper ocupa todo el espacio disponible */
+.controlesRow .controles {
+  flex: 1;
+}
+
+.deleteProductoBtn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 34px;
+  height: 34px;
+  border: 1.5px solid var(--adm-border);
+  background: transparent;
+  border-radius: 8px;
+  color: #d1d5db;
+  cursor: pointer;
+  transition: background 150ms ease, color 150ms ease, border-color 150ms ease;
+}
+
+.deleteProductoBtn:hover {
+  background: #fee2e2;
+  color: #ef4444;
+  border-color: #fca5a5;
+}
+
+.deleteProductoBtn:disabled { opacity: 0.35; pointer-events: none; }
+
+@keyframes spin { to { transform: rotate(360deg); } }
+.spin { animation: spin 0.8s linear infinite; }
 
 /* ── Empty state ─────────────────────────────────────────────── */
 .empty {

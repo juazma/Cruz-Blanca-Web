@@ -34,6 +34,15 @@ model Producto {
   createdAt   DateTime @default(now())
 }
 
+// ─── BLOQUEOS DE RESERVAS ────────────────────────────────────
+model BloqueoReserva {
+  id        String   @id @default(uuid())
+  fecha     String   // "YYYY-MM-DD"
+  hora      String?  // null = todo el día · "HH:MM" = solo esa hora
+  mensaje   String
+  createdAt DateTime @default(now())
+}
+
 // ─── PLATOS (carta) ──────────────────────────────────────────
 model Plato {
   id          String   @id @default(uuid())

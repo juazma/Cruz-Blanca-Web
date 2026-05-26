@@ -1,27 +1,111 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect, useRef, useTransition } from "react";
+import { getDisponibilidad, enviarReservaPublica } from "@/app/actions/reservas";
+import type { DisponibilidadResult } from "@/app/actions/reservas";
 import styles from "./page.module.css";
 
-type Status = "idle" | "sent";
+// ── Slots disponibles ──────────────────────────────────────────
+
+const SLOTS_COMIDA = ["13:00","13:30","14:00","14:30","15:00","15:30","16:00"];
+const SLOTS_CENA   = ["20:00","20:30","21:00","21:30","22:00","22:30","23:00"];
+
+// ── Types ──────────────────────────────────────────────────────
+
+type Status = "idle" | "sending" | "sent" | "error";
+
+// ── Page ───────────────────────────────────────────────────────
 
 export default function ReservarPage() {
-  const [status, setStatus] = useState<Status>("idle");
+  const [status,          setStatus]          = useState<Status>("idle");
+  const [errorMsg,        setErrorMsg]        = useState("");
+  const [disponibilidad,  setDisponibilidad]  = useState<DisponibilidadResult | null>(null);
+  const [loadingDisp,     setLoadingDisp]     = useState(false);
+  const [isPending,       startTransition]    = useTransition();
+
   const [form, setForm] = useState({
-    nombre: "",
-    telefono: "",
+    nombre:     "",
+    telefono:   "",
     comensales: "2",
-    fecha: "",
-    hora: "",
+    fecha:      "",
+    hora:       "",
   });
+
+  const formRef = useRef<HTMLFormElement>(null);
+
+  // Consultar disponibilidad cada vez que cambia la fecha
+  useEffect(() => {
+    if (!form.fecha) {
+      setDisponibilidad(null);
+      return;
+    }
+    setLoadingDisp(true);
+    getDisponibilidad(form.fecha).then((disp) => {
+      setDisponibilidad(disp);
+      setLoadingDisp(false);
+      // Si la hora elegida queda bloqueada u ocupada, la reseteamos
+      if (!disp.bloqueadoCompleto) {
+        const horaActual = form.hora;
+        const estaBloqueada = horaActual in disp.horasBloqueadas;
+        const estaOcupada   = disp.horasOcupadas.includes(horaActual);
+        if (estaBloqueada || estaOcupada) {
+          setForm((f) => ({ ...f, hora: "" }));
+        }
+      } else {
+        // Día completo bloqueado → limpiar hora
+        setForm((f) => ({ ...f, hora: "" }));
+      }
+    });
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [form.fecha]);
 
   const set = (k: keyof typeof form) =>
     (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) =>
       setForm((f) => ({ ...f, [k]: e.target.value }));
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    setStatus("sent");
+    if (!formRef.current) return;
+    const formData = new FormData(formRef.current);
+    setErrorMsg("");
+    startTransition(async () => {
+      setStatus("sending");
+      try {
+        const result = await enviarReservaPublica(formData);
+        if ("success" in result && result.success) {
+          setStatus("sent");
+        } else if ("error" in result) {
+          setErrorMsg(result.error);
+          setStatus("error");
+        }
+      } catch {
+        setErrorMsg("Ha ocurrido un error inesperado. Inténtalo de nuevo.");
+        setStatus("error");
+      }
+    });
+  };
+
+  const isSending = isPending || status === "sending";
+
+  // Helpers de disponibilidad
+  const bloqueadoCompleto = disponibilidad?.bloqueadoCompleto === true;
+  const mensajeBloqueo    = bloqueadoCompleto
+    ? (disponibilidad as Extract<DisponibilidadResult, { bloqueadoCompleto: true }>).mensaje
+    : "";
+  const horasOcupadas     = (!bloqueadoCompleto && disponibilidad)
+    ? (disponibilidad as Extract<DisponibilidadResult, { bloqueadoCompleto: false }>).horasOcupadas
+    : [];
+  const horasBloqueadas   = (!bloqueadoCompleto && disponibilidad)
+    ? (disponibilidad as Extract<DisponibilidadResult, { bloqueadoCompleto: false }>).horasBloqueadas
+    : {} as Record<string, string>;
+
+  const slotDeshabilitado = (h: string) =>
+    horasOcupadas.includes(h) || h in horasBloqueadas;
+
+  const slotLabel = (h: string): string => {
+    if (horasOcupadas.includes(h))  return `${h} (Completo)`;
+    if (h in horasBloqueadas)       return `${h} (No disponible)`;
+    return h;
   };
 
   return (
@@ -32,7 +116,7 @@ export default function ReservarPage() {
       <div className={styles.imageCol}>
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
-          src="https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=1200&q=85&auto=format&fit=crop"
+          src="/images/galeria3.png"
           alt="Reservar mesa en Cruz Blanca"
           className={styles.image}
         />
@@ -57,6 +141,7 @@ export default function ReservarPage() {
             <h1 className={styles.title}>Reservar<br /><em>una mesa</em></h1>
           </div>
 
+          {/* ── Pantalla de confirmación ─────────────────── */}
           {status === "sent" ? (
             <div className={styles.confirmation}>
               <p className={styles.confirmIcon}>✓</p>
@@ -68,34 +153,39 @@ export default function ReservarPage() {
               </p>
               <a href="/" className={styles.confirmBack}>Volver a inicio</a>
             </div>
-          ) : (
-            <form className={styles.form} onSubmit={handleSubmit} noValidate>
 
+          ) : (
+
+            /* ── Formulario ──────────────────────────────── */
+            <form
+              ref={formRef}
+              className={styles.form}
+              onSubmit={handleSubmit}
+              noValidate
+            >
               <div className={styles.field}>
                 <label className={styles.label} htmlFor="nombre">Nombre</label>
                 <input
-                  id="nombre"
-                  type="text"
+                  id="nombre" name="nombre" type="text"
                   className={styles.input}
                   placeholder="Juan García"
                   value={form.nombre}
                   onChange={set("nombre")}
-                  required
-                  autoComplete="name"
+                  required autoComplete="name"
+                  disabled={isSending}
                 />
               </div>
 
               <div className={styles.field}>
                 <label className={styles.label} htmlFor="telefono">Teléfono</label>
                 <input
-                  id="telefono"
-                  type="tel"
+                  id="telefono" name="telefono" type="tel"
                   className={styles.input}
                   placeholder="+34 600 000 000"
                   value={form.telefono}
                   onChange={set("telefono")}
-                  required
-                  autoComplete="tel"
+                  required autoComplete="tel"
+                  disabled={isSending}
                 />
               </div>
 
@@ -103,14 +193,16 @@ export default function ReservarPage() {
                 <div className={styles.field}>
                   <label className={styles.label} htmlFor="comensales">Comensales</label>
                   <select
-                    id="comensales"
+                    id="comensales" name="comensales"
                     className={styles.select}
                     value={form.comensales}
                     onChange={set("comensales")}
-                    required
+                    required disabled={isSending}
                   >
                     {[1,2,3,4,5,6,7,8].map((n) => (
-                      <option key={n} value={n}>{n} {n === 1 ? "persona" : "personas"}</option>
+                      <option key={n} value={n}>
+                        {n} {n === 1 ? "persona" : "personas"}
+                      </option>
                     ))}
                     <option value="9+">Más de 8</option>
                   </select>
@@ -119,47 +211,94 @@ export default function ReservarPage() {
                 <div className={styles.field}>
                   <label className={styles.label} htmlFor="fecha">Fecha</label>
                   <input
-                    id="fecha"
-                    type="date"
+                    id="fecha" name="fecha" type="date"
                     className={styles.input}
                     value={form.fecha}
                     onChange={set("fecha")}
                     required
                     min={new Date().toISOString().split("T")[0]}
+                    disabled={isSending}
                   />
                 </div>
               </div>
 
-              <div className={styles.field}>
-                <label className={styles.label} htmlFor="hora">Hora</label>
-                <select
-                  id="hora"
-                  className={styles.select}
-                  value={form.hora}
-                  onChange={set("hora")}
-                  required
-                >
-                  <option value="" disabled>Selecciona una hora</option>
-                  <optgroup label="Comida">
-                    {["13:00","13:30","14:00","14:30","15:00","15:30","16:00"].map(h => (
-                      <option key={h} value={h}>{h}</option>
-                    ))}
-                  </optgroup>
-                  <optgroup label="Cena">
-                    {["20:00","20:30","21:00","21:30","22:00","22:30","23:00"].map(h => (
-                      <option key={h} value={h}>{h}</option>
-                    ))}
-                  </optgroup>
-                </select>
-              </div>
+              {/* ── Bloqueo de día completo ───────────────── */}
+              {form.fecha && bloqueadoCompleto && (
+                <div className={styles.bloqueoDiaCard}>
+                  <span className={styles.bloqueoDiaIcon}>🔒</span>
+                  <div className={styles.bloqueoDiaText}>
+                    <strong>No disponible</strong>
+                    <span>{mensajeBloqueo}</span>
+                  </div>
+                </div>
+              )}
 
-              <button type="submit" className={styles.submit}>
-                Reservar mesa
-              </button>
+              {/* ── Selector de hora (oculto si día bloqueado) ── */}
+              {!bloqueadoCompleto && (
+                <div className={styles.field}>
+                  <label className={styles.label} htmlFor="hora">
+                    Hora
+                    {loadingDisp && <span className={styles.aforoHint}> · Comprobando…</span>}
+                    {!loadingDisp && form.fecha && Object.keys(horasBloqueadas).length > 0 && (
+                      <span className={styles.aforoHint}> · Algunos horarios no disponibles</span>
+                    )}
+                    {!loadingDisp && form.fecha && horasOcupadas.length > 0 && (
+                      <span className={styles.aforoHint}> · Algunas horas sin aforo</span>
+                    )}
+                  </label>
+                  <select
+                    id="hora" name="hora"
+                    className={styles.select}
+                    value={form.hora}
+                    onChange={set("hora")}
+                    required
+                    disabled={isSending || loadingDisp}
+                  >
+                    <option value="" disabled>Selecciona una hora</option>
+                    <optgroup label="Comida">
+                      {SLOTS_COMIDA.map((h) => (
+                        <option key={h} value={h} disabled={slotDeshabilitado(h)}>
+                          {slotLabel(h)}
+                        </option>
+                      ))}
+                    </optgroup>
+                    <optgroup label="Cena">
+                      {SLOTS_CENA.map((h) => (
+                        <option key={h} value={h} disabled={slotDeshabilitado(h)}>
+                          {slotLabel(h)}
+                        </option>
+                      ))}
+                    </optgroup>
+                  </select>
+
+                  {/* Mensaje del bloqueo de la hora elegida */}
+                  {form.hora && form.hora in horasBloqueadas && (
+                    <p className={styles.horaBloqueoMsg}>
+                      {horasBloqueadas[form.hora]}
+                    </p>
+                  )}
+                </div>
+              )}
+
+              {/* Mensaje de error */}
+              {status === "error" && errorMsg && (
+                <p className={styles.errorMsg} role="alert">{errorMsg}</p>
+              )}
+
+              {/* Botón — oculto si el día está bloqueado */}
+              {!bloqueadoCompleto && (
+                <button
+                  type="submit"
+                  className={styles.submit}
+                  disabled={isSending}
+                >
+                  {isSending ? "Enviando…" : "Reservar mesa"}
+                </button>
+              )}
 
               <p className={styles.legal}>
                 Al hacer clic en "Reservar mesa" aceptas nuestra{" "}
-                <a href="#">política de privacidad</a>.
+                <a href="/politica-privacidad">política de privacidad</a>.
               </p>
 
             </form>

@@ -98,7 +98,7 @@
 /* aspect variants */
 .tall   { grid-row: span 2; }
 .wide   { grid-column: span 2; }
-.square { grid-row: span 1; grid-column: span 1; }
+.square { grid-row: span 1; grid-column: span 1; aspect-ratio: 5 / 4;}
 
 .masonryImg {
   width: 100%;

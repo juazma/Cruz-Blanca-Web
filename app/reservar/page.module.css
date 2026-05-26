@@ -194,6 +194,79 @@
   padding-right: 1.5rem;
 }
 
+/* ── BLOQUEO DÍA COMPLETO ────────────────────────────────── */
+.bloqueoDiaCard {
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+  padding: 1.25rem 1.5rem;
+  border: 1px solid rgba(180, 50, 50, 0.2);
+  border-radius: 6px;
+  background: rgba(254, 242, 242, 0.6);
+}
+
+.bloqueoDiaIcon {
+  font-size: 1.25rem;
+  line-height: 1;
+  flex-shrink: 0;
+  margin-top: 0.1rem;
+}
+
+.bloqueoDiaText {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.bloqueoDiaText strong {
+  font-family: var(--font-body);
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: #7f1d1d;
+  letter-spacing: 0.01em;
+}
+
+.bloqueoDiaText span {
+  font-family: var(--font-body);
+  font-size: 0.8125rem;
+  font-weight: 300;
+  color: #991b1b;
+  line-height: 1.5;
+}
+
+/* ── HORA BLOQUEADA — mensaje inline ─────────────────────── */
+.horaBloqueoMsg {
+  font-family: var(--font-body);
+  font-size: 0.75rem;
+  font-weight: 400;
+  color: #92400e;
+  margin: 0.35rem 0 0;
+  padding: 0;
+}
+
+/* ── AFORO HINT ──────────────────────────────────────────── */
+.aforoHint {
+  font-size: 0.6rem;
+  font-weight: 400;
+  letter-spacing: 0.1em;
+  color: var(--color-text-soft);
+  opacity: 0.75;
+}
+
+/* ── ERROR MESSAGE ───────────────────────────────────────── */
+.errorMsg {
+  font-family: var(--font-body);
+  font-size: 0.8125rem;
+  font-weight: 400;
+  color: #b45309;
+  background: #fef3c7;
+  border: 1px solid #fde68a;
+  border-radius: 4px;
+  padding: 0.75rem 1rem;
+  margin: 0;
+  line-height: 1.5;
+}
+
 /* ── SUBMIT ──────────────────────────────────────────────── */
 .submit {
   margin-top: 0.5rem;
@@ -219,6 +292,18 @@
 
 .submit:active {
   transform: translateY(0);
+}
+
+.submit:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.input:disabled,
+.select:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
 }
 
 /* ── LEGAL ───────────────────────────────────────────────── */

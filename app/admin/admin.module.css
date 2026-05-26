@@ -12,12 +12,15 @@
   padding: 1.5rem;
   display: flex;
   flex-direction: column;
+  /* Necesario cuando .card se usa como <Link> / <a> */
+  text-decoration: none;
+  color: inherit;
   transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
 .card:hover {
-  transform: translateY(-2px);
-  box-shadow: var(--adm-shadow-hover);
+  transform: translateY(-4px);
+  box-shadow: 0 12px 24px -10px rgba(0, 0, 0, 0.1);
 }
 
 .cardAfluencia {

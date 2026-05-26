@@ -26,17 +26,17 @@ const GALLERY = [
     aspect: "wide",
   },
   {
-    src: "https://images.unsplash.com/photo-1600891964599-f61ba0e24092?w=900&q=80&auto=format&fit=crop",
+    src: "/images/galeria2.png",
     alt: "Cocina tradicional española",
     aspect: "wide",
   },
   {
-    src: "https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=900&q=80&auto=format&fit=crop",
+    src: "/images/galeria3.png",
     alt: "Ambiente del restaurante",
     aspect: "tall",
   },
   {
-    src: "https://images.unsplash.com/photo-1482275548304-a58859dc31b7?w=900&q=80&auto=format&fit=crop",
+    src: "/images/paso3.png",
     alt: "Detalle de mesa",
     aspect: "square",
   },
