@@ -253,14 +253,22 @@
 
 /* ── MOBILE ──────────────────────────────────────────────── */
 @media (max-width: 768px) {
+  /* Compact track height so other sections start sooner */
   .scrollTrack {
-    height: 450vh;
+    height: 280vh;
   }
 
+  /* Reduce hero panel height — not full viewport on mobile */
+  .sticky {
+    height: 60vh;
+    min-height: 320px;
+  }
+
+  /* Center content vertically within the smaller panel */
   .textLayer,
   .revealContent {
-    justify-content: flex-start;
-    padding-top: 6rem;
+    justify-content: center;
+    padding-top: 4rem; /* just clear the header */
   }
 
   /* iOS Safari doesn't support background-attachment: fixed.

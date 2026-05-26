@@ -7,9 +7,13 @@
   border-radius: 50%;
   pointer-events: none;
   z-index: 99999;
-  /* Center exactly on the pointer tip */
   margin-top: -11px;
   margin-left: -11px;
-  /* GPU layer */
   will-change: transform;
+}
+
+@media (pointer: coarse), (hover: none), (max-width: 768px) {
+  .cursor {
+    display: none !important;
+  }
 }
