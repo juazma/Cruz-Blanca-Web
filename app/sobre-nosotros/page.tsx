@@ -50,9 +50,6 @@ export default function SobreNosotrosPage() {
 
   const imgStyle = {
     backgroundImage: `url('${HERO_IMAGE}')`,
-    backgroundSize: "cover" as const,
-    backgroundPosition: "center" as const,
-    backgroundAttachment: "fixed" as const,
   };
 
   return (
