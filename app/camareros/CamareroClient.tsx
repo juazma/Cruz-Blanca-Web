@@ -1,6 +1,6 @@
 "use client";
 
-import { useTransition, useState } from "react";
+import { useTransition, useState, useEffect } from "react";
 import {
   crearOActualizarComanda,
   actualizarEstadoItem,
@@ -11,7 +11,7 @@ import {
 import { logoutStaff } from "@/app/actions/authCamarero";
 import styles from "./camareros.module.css";
 
-/* ── Types (inferred from Prisma include) ──────────────────────── */
+/* ── Types ──────────────────────────────────────────────────────── */
 type Plato = {
   id: string;
   nombre: string;
@@ -34,8 +34,9 @@ type Comanda = {
   items: ComandaItem[];
 };
 
-/* ── Constants ─────────────────────────────────────────────────── */
-const MESAS = Array.from({ length: 12 }, (_, i) => String(i + 1));
+/* ── Default mesas ──────────────────────────────────────────────── */
+const DEFAULT_MESAS = Array.from({ length: 12 }, (_, i) => String(i + 1));
+const STORAGE_KEY = "cruzblanca_mesas";
 
 interface Props {
   comandas: Comanda[];
@@ -44,6 +45,54 @@ interface Props {
 }
 
 export default function CamareroClient({ comandas, platos, camarero }: Props) {
+  /* ── Mesas state (persisted in localStorage) ────────────────────── */
+  const [mesas, setMesas] = useState<string[]>(DEFAULT_MESAS);
+  const [mesasLoaded, setMesasLoaded] = useState(false);
+  const [showMesaManager, setShowMesaManager] = useState(false);
+  const [nuevaMesa, setNuevaMesa] = useState("");
+
+  // Load from localStorage on mount
+  useEffect(() => {
+    try {
+      const stored = localStorage.getItem(STORAGE_KEY);
+      if (stored) {
+        const parsed = JSON.parse(stored) as string[];
+        if (Array.isArray(parsed) && parsed.length > 0) {
+          setMesas(parsed);
+        }
+      }
+    } catch {
+      // ignore
+    }
+    setMesasLoaded(true);
+  }, []);
+
+  // Save to localStorage whenever mesas changes (after initial load)
+  useEffect(() => {
+    if (mesasLoaded) {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(mesas));
+    }
+  }, [mesas, mesasLoaded]);
+
+  function handleAddMesa() {
+    const trimmed = nuevaMesa.trim();
+    if (!trimmed || mesas.includes(trimmed)) return;
+    setMesas((prev) => [...prev, trimmed]);
+    setNuevaMesa("");
+  }
+
+  function handleDeleteMesa(mesa: string) {
+    const comanda = comandas.find((c) => c.mesa === mesa);
+    if (comanda) {
+      alert(`La mesa "${mesa}" tiene una comanda activa. Ciérrala primero.`);
+      return;
+    }
+    if (!confirm(`¿Eliminar la mesa "${mesa}"?`)) return;
+    setMesas((prev) => prev.filter((m) => m !== mesa));
+    if (selectedMesa === mesa) handleBack();
+  }
+
+  /* ── Comanda state ──────────────────────────────────────────────── */
   const [selectedMesa, setSelectedMesa] = useState<string | null>(null);
   const [detailOpen, setDetailOpen] = useState(false);
 
@@ -53,7 +102,6 @@ export default function CamareroClient({ comandas, platos, camarero }: Props) {
 
   const [pending, startTransition] = useTransition();
 
-  /* Find comanda for selected mesa */
   const comanda = selectedMesa
     ? comandas.find((c) => c.mesa === selectedMesa) ?? null
     : null;
@@ -68,6 +116,7 @@ export default function CamareroClient({ comandas, platos, camarero }: Props) {
   function openMesa(mesa: string) {
     setSelectedMesa(mesa);
     setDetailOpen(true);
+    setShowMesaManager(false);
   }
 
   function handleBack() {
@@ -111,7 +160,7 @@ export default function CamareroClient({ comandas, platos, camarero }: Props) {
     startTransition(() => logoutStaff());
   }
 
-  /* ── Grouped platos for select ─────────────────────────────────── */
+  /* ── Grouped platos for select ──────────────────────────────────── */
   const grupos = platos.reduce<Record<string, Plato[]>>((acc, p) => {
     if (!acc[p.categoria]) acc[p.categoria] = [];
     acc[p.categoria].push(p);
@@ -124,9 +173,21 @@ export default function CamareroClient({ comandas, platos, camarero }: Props) {
       <header className={styles.topbar}>
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img src="/logo.svg" alt="Cruz Blanca" className={styles.topbarLogo} />
-        <button className={styles.logoutBtn} onClick={handleLogout}>
-          Salir
-        </button>
+        <div className={styles.topbarActions}>
+          <button
+            className={styles.managerBtn}
+            onClick={() => {
+              setShowMesaManager((v) => !v);
+              setDetailOpen(false);
+            }}
+            title="Gestionar mesas"
+          >
+            ⚙ Mesas
+          </button>
+          <button className={styles.logoutBtn} onClick={handleLogout}>
+            Salir
+          </button>
+        </div>
       </header>
 
       <div className={styles.body}>
@@ -134,8 +195,48 @@ export default function CamareroClient({ comandas, platos, camarero }: Props) {
         <aside
           className={`${styles.mesaPanel} ${detailOpen ? styles.hidden : ""}`}
         >
+          {/* ── Mesa Manager ────────────────────────────────── */}
+          {showMesaManager && (
+            <div className={styles.mesaManagerBox}>
+              <span className={styles.mesaManagerTitle}>Gestionar mesas</span>
+              <div className={styles.mesaManagerAdd}>
+                <input
+                  type="text"
+                  className={styles.mesaManagerInput}
+                  placeholder="Ej: Terraza 1, Barra 2…"
+                  value={nuevaMesa}
+                  onChange={(e) => setNuevaMesa(e.target.value)}
+                  onKeyDown={(e) => e.key === "Enter" && handleAddMesa()}
+                  maxLength={20}
+                />
+                <button
+                  className={styles.mesaManagerAddBtn}
+                  onClick={handleAddMesa}
+                  disabled={!nuevaMesa.trim() || mesas.includes(nuevaMesa.trim())}
+                >
+                  + Añadir
+                </button>
+              </div>
+              <div className={styles.mesaManagerList}>
+                {mesas.map((m) => (
+                  <div key={m} className={styles.mesaManagerItem}>
+                    <span className={styles.mesaManagerItemName}>Mesa {m}</span>
+                    <button
+                      className={styles.mesaManagerDeleteBtn}
+                      onClick={() => handleDeleteMesa(m)}
+                      title={`Eliminar mesa ${m}`}
+                    >
+                      ✕
+                    </button>
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
+
+          {/* ── Mesa grid ───────────────────────────────────── */}
           <div className={styles.mesaGrid}>
-            {MESAS.map((mesa) => {
+            {mesas.map((mesa) => {
               const c = comandas.find((x) => x.mesa === mesa);
               const isActive = selectedMesa === mesa;
               return (
@@ -253,25 +354,29 @@ export default function CamareroClient({ comandas, platos, camarero }: Props) {
                   </div>
                 )}
 
-                {/* Add plato */}
+                {/* Add plato — fixed layout to prevent overflow */}
                 <div className={styles.addSection}>
                   <span className={styles.addTitle}>Añadir plato</span>
+
+                  {/* Row 1: selector full width */}
+                  <select
+                    className={styles.select}
+                    value={platoId}
+                    onChange={(e) => setPlatoId(e.target.value)}
+                  >
+                    {Object.entries(grupos).map(([cat, items]) => (
+                      <optgroup key={cat} label={cat}>
+                        {items.map((p) => (
+                          <option key={p.id} value={p.id}>
+                            {p.nombre} — {p.precio.toFixed(2)} €
+                          </option>
+                        ))}
+                      </optgroup>
+                    ))}
+                  </select>
+
+                  {/* Row 2: cantidad + button */}
                   <div className={styles.addRow}>
-                    <select
-                      className={styles.select}
-                      value={platoId}
-                      onChange={(e) => setPlatoId(e.target.value)}
-                    >
-                      {Object.entries(grupos).map(([cat, items]) => (
-                        <optgroup key={cat} label={cat}>
-                          {items.map((p) => (
-                            <option key={p.id} value={p.id}>
-                              {p.nombre} — {p.precio.toFixed(2)} €
-                            </option>
-                          ))}
-                        </optgroup>
-                      ))}
-                    </select>
                     <input
                       type="number"
                       min={1}
@@ -285,9 +390,11 @@ export default function CamareroClient({ comandas, platos, camarero }: Props) {
                       onClick={handleAddItem}
                       disabled={pending || !platoId}
                     >
-                      {pending ? "…" : "Añadir"}
+                      {pending ? "…" : "Añadir a la comanda"}
                     </button>
                   </div>
+
+                  {/* Row 3: notes */}
                   <input
                     type="text"
                     className={styles.notasInput}
