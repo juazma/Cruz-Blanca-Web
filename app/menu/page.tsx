@@ -12,7 +12,7 @@ const CAT_LABEL: Record<string, string> = {
   pescados:  "Pescados",
   carnes:    "Carnes",
   postres:   "Postres",
-  bebidas:   "Vinos",
+  bebidas:   "Vinos y Bebidas",
 };
 
 // ── Page ────────────────────────────────────────────────────────────────────
