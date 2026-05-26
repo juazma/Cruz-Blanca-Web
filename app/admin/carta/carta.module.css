@@ -198,6 +198,8 @@
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
   gap: 0.875rem;
+  /* Prevent any card from exceeding the grid width */
+  overflow: hidden;
 }
 
 /* ── Tarjeta de plato ────────────────────────────────────────── */
@@ -251,6 +253,9 @@
   align-items: flex-start;
   justify-content: space-between;
   gap: 0.75rem;
+  /* Prevent body from exceeding card width */
+  min-width: 0;
+  overflow: hidden;
 }
 
 .platoInfo {
@@ -259,15 +264,18 @@
   gap: 0.25rem;
   flex: 1;
   min-width: 0;
+  overflow: hidden;
 }
 
 .platoNombre {
   font-size: 0.9rem;
   font-weight: 600;
   color: var(--adm-text-primary);
-  white-space: nowrap;
+  /* Allow wrapping on narrow screens instead of forcing single line */
+  white-space: normal;
+  word-break: break-word;
+  overflow-wrap: break-word;
   overflow: hidden;
-  text-overflow: ellipsis;
   padding-right: 3rem; /* espacio para badge AGOTADO */
 }
 
@@ -276,9 +284,10 @@
   color: var(--adm-text-secondary);
   line-height: 1.4;
   display: -webkit-box;
-  -webkit-line-clamp: 2;
+  -webkit-line-clamp: 3;
   -webkit-box-orient: vertical;
   overflow: hidden;
+  word-break: break-word;
 }
 
 .platoPrecio {
@@ -535,5 +544,12 @@
 @media (max-width: 640px) {
   .formGrid { grid-template-columns: 1fr; }
   .formGrid .formField[style] { grid-column: span 1 !important; }
+  /* Force single-column layout so cards never exceed screen width */
   .platosGrid { grid-template-columns: 1fr; }
+  /* Tighter card padding on mobile */
+  .platoCard { padding: 0.875rem 0.875rem; }
+  /* Reduce badge spacing so name has more room */
+  .platoNombre { padding-right: 4rem; }
+  /* Wrap action buttons to avoid cramping */
+  .platoActions { flex-wrap: wrap; }
 }
