@@ -53,13 +53,13 @@ export default function CocinaClient({ comandas }: Props) {
   const router = useRouter();
   const [pending, startTransition] = useTransition();
 
-  /* Auto-refresh every 10 s */
+  /* Auto-refresh every 5 s */
   const refresh = useCallback(() => {
     router.refresh();
   }, [router]);
 
   useEffect(() => {
-    const id = setInterval(refresh, 10_000);
+    const id = setInterval(refresh, 5000);
     return () => clearInterval(id);
   }, [refresh]);
 
@@ -82,12 +82,11 @@ export default function CocinaClient({ comandas }: Props) {
     <div className={styles.root}>
       <header className={styles.topbar}>
         <div className={styles.topbarLeft}>
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img src="/logo.svg" alt="Cruz Blanca" className={styles.topbarLogo} />
+          <img src="/logo.svg" alt="Cruz Blanca" className={styles.topbarLogo} style={{ height: '20px' }} />
           <span className={styles.topbarRole}>🍳 Panel de Cocina</span>
         </div>
         <div className={styles.topbarRight}>
-          <span className={styles.refreshLabel}>↻ auto 10 s</span>
+          <span className={styles.refreshLabel}>↻ auto 5 s</span>
           <button className={styles.logoutBtn} onClick={handleLogout}>
             Salir
           </button>

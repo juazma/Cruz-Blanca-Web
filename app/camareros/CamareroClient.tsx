@@ -1,6 +1,7 @@
 "use client";
 
-import { useTransition, useState, useEffect } from "react";
+import { useTransition, useState, useEffect, useCallback } from "react";
+import { useRouter } from "next/navigation";
 import {
   crearOActualizarComanda,
   actualizarEstadoItem,
@@ -45,11 +46,22 @@ interface Props {
 }
 
 export default function CamareroClient({ comandas, platos, camarero }: Props) {
+  const router = useRouter();
   /* ── Mesas state (persisted in localStorage) ────────────────────── */
   const [mesas, setMesas] = useState<string[]>(DEFAULT_MESAS);
   const [mesasLoaded, setMesasLoaded] = useState(false);
   const [showMesaManager, setShowMesaManager] = useState(false);
   const [nuevaMesa, setNuevaMesa] = useState("");
+
+  /* Auto-refresh every 5 s */
+  const refresh = useCallback(() => {
+    router.refresh();
+  }, [router]);
+
+  useEffect(() => {
+    const id = setInterval(refresh, 5000);
+    return () => clearInterval(id);
+  }, [refresh]);
 
   // Load from localStorage on mount
   useEffect(() => {
@@ -172,7 +184,7 @@ export default function CamareroClient({ comandas, platos, camarero }: Props) {
       {/* Top bar */}
       <header className={styles.topbar}>
         {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img src="/logo.svg" alt="Cruz Blanca" className={styles.topbarLogo} />
+        <img src="/logo.svg" alt="Cruz Blanca" className={styles.topbarLogo} style={{ height: '20px' }} />
         <div className={styles.topbarActions}>
           <button
             className={styles.managerBtn}
