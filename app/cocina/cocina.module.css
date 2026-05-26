@@ -1,0 +1,320 @@
+/* ═══════════════════════════════════════════════════════════════
+   Cocina — diseño unificado con el panel de admin
+   Paleta idéntica a admin-globals.css
+═══════════════════════════════════════════════════════════════ */
+
+/* ── Design tokens (mirroring admin-globals.css) ──────────────── */
+.root {
+  --adm-bg:             #f4f5f7;
+  --adm-surface:        #ffffff;
+  --adm-border:         #e8eaed;
+  --adm-text-primary:   #1a1d23;
+  --adm-text-secondary: #6b7280;
+  --adm-text-muted:     #9ca3af;
+  --adm-accent:         #1a1d23;
+  --adm-shadow-card:    0 2px 8px rgba(0,0,0,0.04), 0 0 0 1px rgba(0,0,0,0.04);
+  --adm-shadow-hover:   0 8px 28px rgba(0,0,0,0.09), 0 0 0 1px rgba(0,0,0,0.05);
+  --adm-radius-md:      16px;
+  --adm-radius-sm:      10px;
+  --adm-green-bg:       #d1fae5;
+  --adm-green-fg:       #065f46;
+  --adm-amber-bg:       #fef3c7;
+  --adm-amber-fg:       #92400e;
+  --adm-blue-bg:        #dbeafe;
+  --adm-blue-fg:        #1e40af;
+  --adm-red-bg:         #fee2e2;
+  --adm-red-fg:         #991b1b;
+
+  min-height: 100dvh;
+  background: var(--adm-bg);
+  color: var(--adm-text-primary);
+  font-family: "Outfit", system-ui, sans-serif;
+  display: flex;
+  flex-direction: column;
+  cursor: auto !important;
+}
+
+.root *, .root *::before, .root *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+.root button  { cursor: pointer !important; }
+
+/* ── Top bar ────────────────────────────────────────────────────── */
+.topbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 1.5rem;
+  height: 64px;
+  background: var(--adm-surface);
+  border-bottom: 1px solid var(--adm-border);
+  position: sticky;
+  top: 0;
+  z-index: 30;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.04);
+}
+
+.topbarLeft {
+  display: flex;
+  align-items: center;
+  gap: 0.875rem;
+}
+
+.topbarLogo {
+  height: 32px;
+  width: auto;
+  display: block;
+}
+
+.topbarRole {
+  font-size: 0.8125rem;
+  font-weight: 600;
+  color: var(--adm-text-secondary);
+  letter-spacing: 0.01em;
+  /* vertical separator */
+  padding-left: 0.875rem;
+  border-left: 1px solid var(--adm-border);
+}
+
+.topbarRight {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.refreshLabel {
+  font-size: 0.72rem;
+  font-weight: 500;
+  color: var(--adm-text-muted);
+  letter-spacing: 0.05em;
+}
+
+.logoutBtn {
+  height: 34px;
+  padding: 0 1rem;
+  background: transparent;
+  border: 1px solid var(--adm-border);
+  border-radius: 8px;
+  color: var(--adm-text-secondary);
+  font-size: 0.8125rem;
+  font-weight: 500;
+  font-family: inherit;
+  cursor: pointer;
+  transition: background 150ms ease, color 150ms ease, border-color 150ms ease;
+}
+
+.logoutBtn:hover {
+  background: var(--adm-bg);
+  color: var(--adm-text-primary);
+  border-color: #d1d5db;
+}
+
+/* ── Ticket board ──────────────────────────────────────────────── */
+.board {
+  flex: 1;
+  padding: 1.25rem;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  align-content: flex-start;
+}
+
+/* ── Ticket card ───────────────────────────────────────────────── */
+.ticket {
+  background: var(--adm-surface);
+  border: 1.5px solid var(--adm-border);
+  border-radius: var(--adm-radius-md);
+  padding: 1.25rem;
+  width: 100%;
+  max-width: 360px;
+  display: flex;
+  flex-direction: column;
+  gap: 0.875rem;
+  flex-shrink: 0;
+  box-shadow: var(--adm-shadow-card);
+  transition: box-shadow 180ms ease;
+}
+
+.ticket:hover {
+  box-shadow: var(--adm-shadow-hover);
+}
+
+@media (min-width: 640px) {
+  .ticket {
+    width: calc(50% - 0.5rem);
+    max-width: none;
+  }
+}
+
+@media (min-width: 1200px) {
+  .ticket {
+    width: calc(33.333% - 0.75rem);
+  }
+}
+
+/* ── Ticket header ─────────────────────────────────────────────── */
+.ticketHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-bottom: 0.75rem;
+  border-bottom: 1px solid var(--adm-border);
+}
+
+.ticketMesa {
+  font-size: 1.125rem;
+  font-weight: 700;
+  color: var(--adm-text-primary);
+}
+
+.ticketTime {
+  font-size: 0.72rem;
+  font-weight: 500;
+  color: var(--adm-text-muted);
+  background: var(--adm-bg);
+  border: 1px solid var(--adm-border);
+  border-radius: 99px;
+  padding: 0.18rem 0.6rem;
+}
+
+/* ── Ticket items ──────────────────────────────────────────────── */
+.ticketItems {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.ticketItem {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  background: var(--adm-bg);
+  border: 1.5px solid var(--adm-border);
+  border-radius: var(--adm-radius-sm);
+  padding: 0.625rem 0.875rem;
+  transition: border-color 180ms ease, background 180ms ease;
+}
+
+.ticketItem.preparando {
+  border-color: color-mix(in srgb, #1e40af 25%, transparent);
+  background: #eff6ff;
+}
+
+.ticketItem.listo {
+  border-color: color-mix(in srgb, #065f46 25%, transparent);
+  background: #f0fdf4;
+}
+
+.ticketItem.entregado {
+  opacity: 0.35;
+}
+
+.ticketCant {
+  font-weight: 700;
+  color: var(--adm-text-secondary);
+  min-width: 1.5rem;
+  text-align: center;
+  font-size: 0.9rem;
+  flex-shrink: 0;
+}
+
+.ticketNombre {
+  flex: 1;
+  font-size: 0.9rem;
+  color: var(--adm-text-primary);
+  font-weight: 600;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.ticketNotas {
+  font-size: 0.72rem;
+  color: var(--adm-red-fg);
+  background: var(--adm-red-bg);
+  border-radius: 4px;
+  padding: 0.1rem 0.4rem;
+  margin-top: 0.2rem;
+  display: inline-block;
+}
+
+/* ── Estado button ─────────────────────────────────────────────── */
+.estadoBtn {
+  font-size: 0.7rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  border-radius: 99px;
+  padding: 0.25rem 0.75rem;
+  cursor: pointer;
+  border: 1px solid transparent;
+  transition: background 150ms ease, color 150ms ease, border-color 150ms ease, transform 100ms ease;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.estadoBtn:active { transform: scale(0.96); }
+
+.btnPENDIENTE {
+  background: var(--adm-amber-bg);
+  color: var(--adm-amber-fg);
+  border-color: color-mix(in srgb, var(--adm-amber-fg) 20%, transparent);
+}
+.btnPENDIENTE:hover {
+  background: color-mix(in srgb, var(--adm-blue-bg) 80%, white);
+  color: var(--adm-blue-fg);
+  border-color: color-mix(in srgb, var(--adm-blue-fg) 20%, transparent);
+}
+
+.btnPREPARANDO {
+  background: var(--adm-blue-bg);
+  color: var(--adm-blue-fg);
+  border-color: color-mix(in srgb, var(--adm-blue-fg) 20%, transparent);
+}
+.btnPREPARANDO:hover {
+  background: color-mix(in srgb, var(--adm-green-bg) 80%, white);
+  color: var(--adm-green-fg);
+  border-color: color-mix(in srgb, var(--adm-green-fg) 20%, transparent);
+}
+
+.btnLISTO {
+  background: var(--adm-green-bg);
+  color: var(--adm-green-fg);
+  border-color: color-mix(in srgb, var(--adm-green-fg) 20%, transparent);
+  cursor: default;
+}
+.btnLISTO:disabled { opacity: 1; }
+
+.btnENTREGADO {
+  background: var(--adm-border);
+  color: var(--adm-text-muted);
+  cursor: default;
+}
+
+/* ── Empty state ───────────────────────────────────────────────── */
+.empty {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+  color: var(--adm-text-muted);
+  text-align: center;
+  padding: 4rem;
+  width: 100%;
+}
+
+.emptyIcon {
+  font-size: 3rem;
+  opacity: 0.4;
+}
+
+.emptyText {
+  font-size: 0.9375rem;
+  color: var(--adm-text-secondary);
+}

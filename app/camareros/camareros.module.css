@@ -1,0 +1,535 @@
+/* ═══════════════════════════════════════════════════════════════
+   Camareros — diseño unificado con el panel de admin
+   Paleta idéntica a admin-globals.css
+═══════════════════════════════════════════════════════════════ */
+
+/* ── Design tokens (mirroring admin-globals.css) ──────────────── */
+.root {
+  --adm-bg:             #f4f5f7;
+  --adm-surface:        #ffffff;
+  --adm-border:         #e8eaed;
+  --adm-text-primary:   #1a1d23;
+  --adm-text-secondary: #6b7280;
+  --adm-text-muted:     #9ca3af;
+  --adm-accent:         #1a1d23;
+  --adm-shadow-card:    0 2px 8px rgba(0,0,0,0.04), 0 0 0 1px rgba(0,0,0,0.04);
+  --adm-shadow-hover:   0 8px 28px rgba(0,0,0,0.09), 0 0 0 1px rgba(0,0,0,0.05);
+  --adm-radius-md:      16px;
+  --adm-radius-sm:      10px;
+  --adm-green-bg:       #d1fae5;
+  --adm-green-fg:       #065f46;
+  --adm-amber-bg:       #fef3c7;
+  --adm-amber-fg:       #92400e;
+  --adm-blue-bg:        #dbeafe;
+  --adm-blue-fg:        #1e40af;
+  --adm-red-bg:         #fee2e2;
+  --adm-red-fg:         #991b1b;
+
+  min-height: 100dvh;
+  background: var(--adm-bg);
+  color: var(--adm-text-primary);
+  font-family: "Outfit", system-ui, sans-serif;
+  display: flex;
+  flex-direction: column;
+  cursor: auto !important;
+}
+
+.root *, .root *::before, .root *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+.root button  { cursor: pointer !important; }
+.root input, .root select, .root textarea { cursor: text !important; }
+
+/* ── Top bar ────────────────────────────────────────────────────── */
+.topbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 1.5rem;
+  height: 64px;
+  background: var(--adm-surface);
+  border-bottom: 1px solid var(--adm-border);
+  position: sticky;
+  top: 0;
+  z-index: 30;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.04);
+}
+
+.topbarLogo {
+  height: 32px;
+  width: auto;
+  display: block;
+}
+
+.logoutBtn {
+  height: 34px;
+  padding: 0 1rem;
+  background: transparent;
+  border: 1px solid var(--adm-border);
+  border-radius: 8px;
+  color: var(--adm-text-secondary);
+  font-size: 0.8125rem;
+  font-weight: 500;
+  font-family: inherit;
+  cursor: pointer;
+  transition: background 150ms ease, color 150ms ease, border-color 150ms ease;
+}
+
+.logoutBtn:hover {
+  background: var(--adm-bg);
+  color: var(--adm-text-primary);
+  border-color: #d1d5db;
+}
+
+/* ── Two-panel layout ──────────────────────────────────────────── */
+.body {
+  flex: 1;
+  display: flex;
+  overflow: hidden;
+}
+
+/* ── Mesa grid (left panel) ────────────────────────────────────── */
+.mesaPanel {
+  width: 100%;
+  max-width: 420px;
+  border-right: 1px solid var(--adm-border);
+  overflow-y: auto;
+  padding: 1.25rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  background: var(--adm-bg);
+}
+
+@media (max-width: 768px) {
+  .mesaPanel {
+    max-width: 100%;
+    border-right: none;
+  }
+  .mesaPanel.hidden {
+    display: none;
+  }
+}
+
+.mesaGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0.75rem;
+}
+
+@media (max-width: 400px) {
+  .mesaGrid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+.mesaCard {
+  background: var(--adm-surface);
+  border: 1.5px solid var(--adm-border);
+  border-radius: var(--adm-radius-sm);
+  padding: 1rem 0.75rem;
+  cursor: pointer;
+  transition: border-color 180ms ease, box-shadow 180ms ease, transform 180ms ease;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+  box-shadow: var(--adm-shadow-card);
+  min-height: 80px;
+  justify-content: center;
+}
+
+.mesaCard:hover {
+  border-color: var(--adm-accent);
+  box-shadow: var(--adm-shadow-hover);
+  transform: translateY(-1px);
+}
+
+.mesaCard.active {
+  border-color: var(--adm-accent);
+  box-shadow: 0 0 0 3px rgba(26, 29, 35, 0.08), var(--adm-shadow-hover);
+}
+
+.mesaCard.ocupada {
+  border-color: #f59e0b;
+  background: #fffbeb;
+}
+
+.mesaCard.ocupada.active {
+  border-color: var(--adm-accent);
+}
+
+.mesaNum {
+  font-size: 0.9375rem;
+  font-weight: 700;
+  color: var(--adm-text-primary);
+}
+
+.mesaLabel {
+  font-size: 0.65rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--adm-text-muted);
+}
+
+.mesaBadge {
+  font-size: 0.68rem;
+  font-weight: 600;
+  color: #92400e;
+  background: var(--adm-amber-bg);
+  border-radius: 99px;
+  padding: 0.1rem 0.5rem;
+  margin: 0 auto;
+}
+
+/* ── Comanda detail (right panel) ──────────────────────────────── */
+.detailPanel {
+  flex: 1;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  background: var(--adm-bg);
+}
+
+@media (max-width: 768px) {
+  .detailPanel {
+    position: fixed;
+    inset: 0;
+    background: var(--adm-bg);
+    z-index: 20;
+    transform: translateX(100%);
+    transition: transform 0.28s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .detailPanel.open {
+    transform: translateX(0);
+  }
+}
+
+.detailHeader {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0 1.25rem;
+  height: 64px;
+  border-bottom: 1px solid var(--adm-border);
+  background: var(--adm-surface);
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.04);
+}
+
+.backBtn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  background: transparent;
+  border: 1px solid var(--adm-border);
+  border-radius: 8px;
+  color: var(--adm-text-secondary);
+  font-size: 1.25rem;
+  cursor: pointer;
+  transition: background 150ms ease, color 150ms ease;
+  flex-shrink: 0;
+}
+
+.backBtn:hover {
+  background: var(--adm-bg);
+  color: var(--adm-text-primary);
+}
+
+.detailTitle {
+  flex: 1;
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--adm-text-primary);
+}
+
+.finalizarBtn {
+  height: 34px;
+  padding: 0 1rem;
+  background: transparent;
+  border: 1px solid var(--adm-border);
+  border-radius: 8px;
+  color: var(--adm-text-secondary);
+  font-size: 0.8125rem;
+  font-weight: 600;
+  font-family: inherit;
+  cursor: pointer;
+  transition: background 150ms ease, color 150ms ease, border-color 150ms ease;
+}
+
+.finalizarBtn:hover {
+  background: var(--adm-green-bg);
+  color: var(--adm-green-fg);
+  border-color: color-mix(in srgb, var(--adm-green-fg) 20%, transparent);
+}
+
+.detailBody {
+  padding: 1.25rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  flex: 1;
+}
+
+/* ── Item list ─────────────────────────────────────────────────── */
+.itemList {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.itemRow {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  background: var(--adm-surface);
+  border: 1.5px solid var(--adm-border);
+  border-radius: var(--adm-radius-sm);
+  padding: 0.75rem 1rem;
+  transition: border-color 180ms ease;
+  box-shadow: var(--adm-shadow-card);
+}
+
+.itemRow.listo {
+  border-color: color-mix(in srgb, var(--adm-green-fg) 30%, transparent);
+  background: #f0fdf4;
+}
+
+.itemRow.entregado {
+  opacity: 0.45;
+}
+
+.itemCant {
+  min-width: 2rem;
+  text-align: center;
+  font-weight: 700;
+  color: var(--adm-text-secondary);
+  font-size: 0.9rem;
+}
+
+.itemInfo {
+  flex: 1;
+  min-width: 0;
+}
+
+.itemNombre {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--adm-text-primary);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.itemNotas {
+  font-size: 0.75rem;
+  color: var(--adm-text-muted);
+  margin-top: 0.15rem;
+}
+
+.itemEstadoBadge {
+  font-size: 0.65rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  border-radius: 99px;
+  padding: 0.18rem 0.55rem;
+  font-weight: 600;
+  flex-shrink: 0;
+}
+
+.estadoPENDIENTE  { background: var(--adm-amber-bg); color: var(--adm-amber-fg); }
+.estadoPREPARANDO { background: var(--adm-blue-bg);  color: var(--adm-blue-fg); }
+.estadoLISTO      { background: var(--adm-green-bg); color: var(--adm-green-fg); }
+.estadoENTREGADO  { background: var(--adm-border);   color: var(--adm-text-muted); }
+
+.itemActions {
+  display: flex;
+  gap: 0.35rem;
+  flex-shrink: 0;
+}
+
+.iconBtn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 30px;
+  height: 30px;
+  background: transparent;
+  border: 1px solid var(--adm-border);
+  border-radius: 6px;
+  color: var(--adm-text-muted);
+  cursor: pointer;
+  font-size: 0.875rem;
+  transition: background 150ms ease, color 150ms ease, border-color 150ms ease;
+}
+
+.iconBtn:hover {
+  background: var(--adm-bg);
+  color: var(--adm-text-primary);
+}
+
+.iconBtn.danger:hover {
+  background: var(--adm-red-bg);
+  color: var(--adm-red-fg);
+  border-color: color-mix(in srgb, var(--adm-red-fg) 20%, transparent);
+}
+
+/* ── Add plato form ────────────────────────────────────────────── */
+.addSection {
+  background: var(--adm-surface);
+  border: 1.5px solid var(--adm-border);
+  border-radius: var(--adm-radius-md);
+  padding: 1.25rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  box-shadow: var(--adm-shadow-card);
+}
+
+.addTitle {
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--adm-text-muted);
+}
+
+.addRow {
+  display: flex;
+  gap: 0.5rem;
+  align-items: flex-end;
+}
+
+.select {
+  flex: 1;
+  height: 40px;
+  padding: 0 0.875rem;
+  background: var(--adm-bg);
+  border: 1px solid var(--adm-border);
+  border-radius: 8px;
+  color: var(--adm-text-primary);
+  font-size: 0.875rem;
+  font-family: inherit;
+  outline: none;
+  transition: border-color 150ms ease, box-shadow 150ms ease;
+}
+
+.select:focus {
+  border-color: var(--adm-accent);
+  box-shadow: 0 0 0 3px rgba(26, 29, 35, 0.08);
+}
+
+.cantInput {
+  width: 64px;
+  height: 40px;
+  padding: 0 0.5rem;
+  text-align: center;
+  background: var(--adm-bg);
+  border: 1px solid var(--adm-border);
+  border-radius: 8px;
+  color: var(--adm-text-primary);
+  font-size: 0.9rem;
+  font-family: inherit;
+  outline: none;
+  transition: border-color 150ms ease, box-shadow 150ms ease;
+}
+
+.cantInput:focus {
+  border-color: var(--adm-accent);
+  box-shadow: 0 0 0 3px rgba(26, 29, 35, 0.08);
+}
+
+.addBtn {
+  height: 40px;
+  padding: 0 1.25rem;
+  background: var(--adm-accent);
+  color: #ffffff;
+  border: none;
+  border-radius: 8px;
+  font-size: 0.875rem;
+  font-weight: 600;
+  font-family: inherit;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: background 150ms ease, transform 100ms ease;
+}
+
+.addBtn:hover  { background: #2d3139; }
+.addBtn:active { transform: scale(0.97); }
+.addBtn:disabled { opacity: 0.45; cursor: not-allowed; }
+
+.notasInput {
+  width: 100%;
+  height: 40px;
+  padding: 0 0.875rem;
+  background: var(--adm-bg);
+  border: 1px solid var(--adm-border);
+  border-radius: 8px;
+  color: var(--adm-text-primary);
+  font-size: 0.875rem;
+  font-family: inherit;
+  outline: none;
+  transition: border-color 150ms ease, box-shadow 150ms ease;
+  box-sizing: border-box;
+}
+
+.notasInput:focus {
+  border-color: var(--adm-accent);
+  box-shadow: 0 0 0 3px rgba(26, 29, 35, 0.08);
+}
+
+.notasInput::placeholder {
+  color: var(--adm-text-muted);
+}
+
+/* ── Empty state ───────────────────────────────────────────────── */
+.empty {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  color: var(--adm-text-muted);
+  padding: 3rem;
+  text-align: center;
+}
+
+.emptyIcon {
+  font-size: 2.5rem;
+  opacity: 0.5;
+}
+
+.emptyText {
+  font-size: 0.875rem;
+  color: var(--adm-text-secondary);
+}
+
+/* ── Total bar ─────────────────────────────────────────────────── */
+.totalBar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1rem 1.25rem;
+  border-top: 1px solid var(--adm-border);
+  background: var(--adm-surface);
+  font-weight: 600;
+  font-size: 0.9375rem;
+  color: var(--adm-text-primary);
+  position: sticky;
+  bottom: 0;
+  box-shadow: 0 -2px 8px rgba(0,0,0,0.04);
+}
+
+.totalAmount {
+  font-weight: 700;
+  font-size: 1.125rem;
+  color: var(--adm-text-primary);
+}
