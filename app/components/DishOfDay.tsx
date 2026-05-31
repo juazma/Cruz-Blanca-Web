@@ -36,7 +36,7 @@ export default function DishOfDay() {
   useEffect(() => {
     getPlatosPublico().then((rawPlatos) => {
       const eligible = rawPlatos.filter(
-        (d) => d.categoria !== "entrantes" && d.categoria !== "bebidas",
+        (d) => d.categoria === "entrantes" || d.categoria === "carnes" || d.categoria === "pescados",
       );
       if (eligible.length > 0) {
         const index = new Date().getDate() % eligible.length;
