@@ -1,8 +1,8 @@
 "use client";
 
-import { useRef, useMemo, useState, useEffect } from "react";
+import { useRef, useState, useEffect } from "react";
 import { motion, useInView, Variants } from "framer-motion";
-import { menuData } from "@/app/data/menuData";
+import { getPlatosPublico } from "@/app/actions/carta";
 import styles from "./DishOfDay.module.css";
 
 const PLACEHOLDER =
@@ -19,20 +19,12 @@ const fadeUp: Variants = {
 };
 
 interface Dish {
+  id: string;
   nombre: string;
   descripcion: string;
   precio: number;
-  imagen: string;
+  imagen: string | null;
   categoria: string;
-}
-
-// Selects a dish deterministically by day-of-month
-function getDishOfDay() {
-  const eligible = (menuData as unknown as Dish[]).filter(
-    (d) => d.categoria !== "entrantes" && d.categoria !== "bebidas",
-  );
-  const index = new Date().getDate() % eligible.length;
-  return eligible[index];
 }
 
 export default function DishOfDay() {
@@ -40,8 +32,18 @@ export default function DishOfDay() {
   const inView = useInView(ref, { once: true, amount: 0.2 });
 
   // Hydration-safe: compute on client only
-  const [dish, setDish] = useState<ReturnType<typeof getDishOfDay> | null>(null);
-  useEffect(() => { setDish(getDishOfDay()); }, []);
+  const [dish, setDish] = useState<Dish | null>(null);
+  useEffect(() => {
+    getPlatosPublico().then((rawPlatos) => {
+      const eligible = rawPlatos.filter(
+        (d) => d.categoria !== "entrantes" && d.categoria !== "bebidas",
+      );
+      if (eligible.length > 0) {
+        const index = new Date().getDate() % eligible.length;
+        setDish(eligible[index]);
+      }
+    }).catch(console.error);
+  }, []);
 
   // Today's date in Spanish — also client-only to avoid hydration mismatch
   const [today, setToday] = useState("");
